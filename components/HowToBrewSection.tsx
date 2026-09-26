@@ -1,80 +1,35 @@
-"use client";
-
+import Image from "next/image";
 
 const steps = [
   {
     number: "01",
     title: "Boil",
     description: "Heat fresh water to 80-85°C",
-    icon: TeapotIcon,
+    image: "/images/brew_steps/step_1_boil.webp",
+    alt: "Boiling water in a minimalist kettle with rising steam",
   },
   {
     number: "02",
     title: "Steep",
     description: "Place tea bag in a cup, pour hot water, steep 3-5 minutes",
-    icon: CupTagIcon,
+    image: "/images/brew_steps/step_2_steep.webp",
+    alt: "Biodegradable tea bag steeping in glass cup with swirling golden infusion",
   },
   {
     number: "03",
     title: "Enjoy",
     description: "Remove the tea bag, relax and enjoy your refreshing cup",
-    icon: SteamingCupIcon,
+    image: "/images/brew_steps/step_3_enjoy.webp",
+    alt: "Hands holding and enjoying a warm cup of herbal tea",
   },
   {
     number: "04",
     title: "Best Enjoyed",
     description: "Hot or iced, enjoy it your way, any time of day",
-    icon: LeafCupIcon,
+    image: "/images/brew_steps/step_4_best_enjoyed.webp",
+    alt: "Sunlit glass cup of tea on a coaster evoking hot or iced any time of day",
   },
 ];
-
-function TeapotIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 64 64" className={className} fill="none" aria-hidden="true">
-      <path d="M18 28H46C46 22 42 18 36 18H28C22 18 18 22 18 28Z" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M18 28H46L43 45C42 49 38 52 34 52H30C26 52 22 49 21 45L18 28Z" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M46 28H51C53 28 54 30 54 32C54 34 53 36 51 36H46" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-      <path d="M24 18V14M32 18V12M40 18V14" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-      <path d="M24 40H40" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function CupTagIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 64 64" className={className} fill="none" aria-hidden="true">
-      <path d="M18 24H46C46 18 42 14 36 14H28C22 14 18 18 18 24Z" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M18 24H46V42C46 47 42 52 36 52H28C22 52 18 47 18 42V24Z" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M46 28H52C54 28 56 30 56 32C56 34 54 36 52 36H46" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-      <path d="M24 23L31 30L38 23" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M26 35H38" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function SteamingCupIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 64 64" className={className} fill="none" aria-hidden="true">
-      <path d="M18 24H46V42C46 47 42 52 36 52H28C22 52 18 47 18 42V24Z" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M46 30H52C54 30 56 32 56 34C56 36 54 38 52 38H46" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-      <path d="M23 18C23 12 28 10 31 12C33 14 32 18 29 19C27 20 23 20 23 18Z" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-      <path d="M32 18C32 12 37 10 40 12C42 14 41 18 38 19C36 20 32 20 32 18Z" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-      <path d="M18 30H46" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function LeafCupIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 64 64" className={className} fill="none" aria-hidden="true">
-      <path d="M18 24H46V42C46 47 42 52 36 52H28C22 52 18 47 18 42V24Z" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M46 30H52C54 30 56 32 56 34C56 36 54 38 52 38H46" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-      <path d="M24 24C24 18 27 14 32 14C36 14 41 18 41 24" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-      <path d="M24 33C28 31 31 31 32 31C35 31 39 32 41 34" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-      <path d="M25 39C29 33 34 30 41 30" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-    </svg>
-  );
-}
 
 export default function HowToBrewSection() {
   return (
@@ -82,25 +37,43 @@ export default function HowToBrewSection() {
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         <div className="mb-8 flex items-baseline justify-between gap-4">
           <div>
-            <p className="text-[10px] font-medium uppercase tracking-[0.26em] text-[#FFF8E7]/60">Brew guide</p>
-            <h2 className="mt-2 font-serif text-3xl text-[#FFF8E7] md:text-4xl">How to Brew</h2>
+            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.18em] text-[#FFF8E7]/70">Brew guide</p>
+            <h2 className="mt-2 font-serif text-3xl sm:text-4xl lg:text-5xl font-normal leading-[1.15] tracking-[-0.02em] text-[#FFF8E7]">How to Brew</h2>
           </div>
-          <p className="hidden text-xs text-[#FFF8E7]/50 sm:block">A simple four-step ritual</p>
+          <p className="hidden font-sans text-xs text-[#FFF8E7]/60 sm:block">A simple four-step ritual</p>
         </div>
 
         <div className="relative">
-          <div className="absolute left-6 top-7 h-[calc(100%-56px)] w-px bg-[#D4A017]/45 sm:hidden" />
-          <div className="absolute left-[12.5%] right-[12.5%] top-7 hidden h-px bg-[#D4A017]/45 sm:block" />
-          <div className="grid gap-3 sm:grid-cols-4 sm:gap-4">
-            {steps.map(({ number, title, description, icon: Icon }) => (
-              <article key={number} className="brew-step relative z-10 flex min-h-[98px] items-center gap-4 rounded-xl border border-[#1B4332]/10 bg-white p-4 text-[#1B4332] shadow-[0_12px_28px_rgba(0,0,0,0.12)] sm:block sm:min-h-[214px] sm:rounded-[1.2rem] sm:p-5">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#1B4332] text-[#FFF8E7] sm:h-14 sm:w-14">
-                  <Icon className="h-6 w-6 sm:h-7 sm:w-7" />
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 sm:gap-5 lg:gap-6 items-stretch">
+            {steps.map(({ number, title, description, image, alt }) => (
+              <article
+                key={number}
+                className="brew-step group relative z-10 flex h-full flex-col overflow-hidden rounded-xl border border-[#1B4332]/10 bg-white text-[#1B4332] shadow-[0_12px_28px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_36px_rgba(0,0,0,0.16)] sm:rounded-[1.2rem]"
+              >
+                {/* Full-width rectangular photo filling the top portion (roughly 40-50% of card) */}
+                <div className="relative aspect-[16/10] w-full shrink-0 overflow-hidden bg-[#FAF6EE]">
+                  <Image
+                    src={image}
+                    alt={alt}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 300px"
+                    className="object-cover object-center"
+                  />
                 </div>
-                <div className="flex-1 sm:mt-5">
-                  <div className="text-[10px] font-medium uppercase tracking-[0.22em] text-[#1B4332]/48">{number}</div>
-                  <h3 className="mt-1 font-serif text-2xl text-[#1B4332]">{title}</h3>
-                  <p className="mt-1 text-xs leading-5 text-[#1B4332]/65 sm:max-w-[14rem]">{description}</p>
+
+                {/* Content below the image with consistent padding and equal card height */}
+                <div className="flex flex-1 flex-col justify-between p-5 lg:p-6">
+                  <div>
+                    <div className="font-sans text-[11px] font-semibold uppercase tracking-[0.18em] text-[#1B4332]/50">
+                      {number}
+                    </div>
+                    <h3 className="mt-1.5 font-serif text-xl sm:text-2xl font-medium leading-tight text-[#1B4332]">
+                      {title}
+                    </h3>
+                    <p className="mt-2 font-sans text-xs sm:text-sm leading-relaxed text-[#1B4332]/70">
+                      {description}
+                    </p>
+                  </div>
                 </div>
               </article>
             ))}

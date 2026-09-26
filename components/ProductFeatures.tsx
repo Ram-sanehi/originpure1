@@ -2,13 +2,13 @@
 
 import React from "react";
 
-function LeafIcon({ className = "h-5 w-5" }: { className?: string }) {
+function LeafIcon({ className = "h-6 w-6" }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.65"
+      strokeWidth="1.8"
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
@@ -20,30 +20,30 @@ function LeafIcon({ className = "h-5 w-5" }: { className?: string }) {
   );
 }
 
-function LightningIcon({ className = "h-5 w-5" }: { className?: string }) {
+function SparkleIcon({ className = "h-6 w-6" }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.65"
+      strokeWidth="1.8"
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
       aria-hidden="true"
     >
-      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+      <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" />
     </svg>
   );
 }
 
-function CupIcon({ className = "h-5 w-5" }: { className?: string }) {
+function CupIcon({ className = "h-6 w-6" }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.65"
+      strokeWidth="1.8"
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
@@ -58,13 +58,13 @@ function CupIcon({ className = "h-5 w-5" }: { className?: string }) {
   );
 }
 
-function PackageIcon({ className = "h-5 w-5" }: { className?: string }) {
+function PackageIcon({ className = "h-6 w-6" }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.65"
+      strokeWidth="1.8"
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
@@ -85,7 +85,7 @@ interface FeatureItem {
 
 const topBarItems = [
   "100% NATURAL BOTANICALS",
-  "25 PYRAMID BAGS PER PACK",
+  "20 BAGS PER PACK",
   "PLANT-BASED BIODEGRADABLE",
 ] as const;
 
@@ -93,34 +93,34 @@ const features: FeatureItem[] = [
   {
     icon: LeafIcon,
     title: "100% First-Harvest Leaves",
-    description: "Sourced from single-estate farms in Kyoto, stone-ground fresh.",
+    description: "Sourced from high-altitude regenerative gardens, harvested at peak vitality.",
   },
   {
-    icon: LightningIcon,
-    title: "6 Hours Clean Focus",
-    description: "L-theanine paired with clean caffeine. Zero jitters or crashes.",
+    icon: SparkleIcon,
+    title: "Sustained Calm & Vitality",
+    description: "Rich in natural antioxidants and gentle L-theanine for balanced, jitter-free calm.",
   },
   {
     icon: CupIcon,
     title: "Silky, Smooth Flavor",
-    description: "Naturally sweet and umami-rich with zero bitter bite.",
+    description: "Naturally balanced and aromatic whole botanicals with zero bitter aftertaste.",
   },
   {
     icon: PackageIcon,
     title: "Freshly Sealed at Origin",
-    description: "Micro-batched weekly in Japan to lock in vibrant nutrients.",
+    description: "Packed fresh in small batches to lock in natural aroma, essential oils, and potency.",
   },
 ];
 
 export default function ProductFeatures() {
   return (
     <section aria-label="Product features" className="w-full">
-      {/* 1. TOP BAR */}
-      <div className="border-t border-[#E5DDD0] bg-[#FAF6F0] py-3.5 px-4 sm:px-6">
+      {/* 1. TOP BAR (INFO STRIP) WITH SOFT GRADIENT TRANSITION */}
+      <div className="relative border-t border-[#C9A65E]/20 bg-gradient-to-b from-[#FAF6EE] via-[#F6EFE3] to-[#EFE7DA] py-4 px-4 sm:px-6 shadow-[inset_0_1px_3px_rgba(201,166,94,0.06)]">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-3 gap-y-1.5 text-center sm:gap-x-4">
           {topBarItems.map((item, index) => (
             <React.Fragment key={item}>
-              <span className="font-sans text-[12px] font-medium uppercase tracking-[0.16em] text-[#6E6356] sm:text-[13px] sm:tracking-[0.18em]">
+              <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.18em] text-[#6E6356]">
                 {item}
               </span>
               {index < topBarItems.length - 1 && (
@@ -137,43 +137,40 @@ export default function ProductFeatures() {
       </div>
 
       {/* 2. MAIN FEATURE GRID */}
-      <div className="bg-[#EDE4D8] px-6 py-12 sm:py-16 md:py-20 lg:px-12">
+      <div className="relative bg-gradient-to-b from-[#EFE7DA] via-[#EDE4D8] to-[#E5DACB]/60 px-6 pt-12 pb-10 sm:pt-14 sm:pb-12 md:pt-16 md:pb-14 lg:px-12">
         <div className="mx-auto max-w-7xl">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 items-stretch">
             {/* 3. FEATURE CARDS */}
             {features.map(({ icon: Icon, title, description }) => (
               <article
                 key={title}
-                className="flex flex-col justify-between rounded-xl border border-[#E3D9CC]/80 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_24px_rgba(60,50,40,0.06)]"
+                className="group flex h-full flex-col justify-between rounded-[1.35rem] border border-[#1B4332]/[0.08] bg-[#FDFBF7] p-6 sm:p-7 shadow-[0_4px_16px_rgba(27,67,50,0.03)] transition-all duration-300 ease-out hover:-translate-y-2 hover:border-[#C9A65E]/50 hover:bg-white hover:shadow-[0_20px_42px_-10px_rgba(27,67,50,0.10),0_6px_18px_-4px_rgba(201,166,94,0.12)] cursor-default"
               >
                 <div>
-                  {/* Icon Box */}
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px] bg-[#D9E4D4] text-[#244234] shadow-[0_2px_6px_rgba(36,66,52,0.06)]">
-                    <Icon className="h-5 w-5" />
+                  {/* Icon Circle with enhanced size, contrast, soft gold gradient and border weight */}
+                  <div className="flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-full border-[1.5px] border-[#C9A65E]/50 bg-gradient-to-br from-[#FFFDF9] via-[#F5EAD4] to-[#E6CD9F] text-[#143427] shadow-[0_3px_12px_rgba(201,166,94,0.18)] ring-4 ring-[#C9A65E]/10 transition-all duration-300 ease-out group-hover:scale-108 group-hover:border-[#C9A65E]/80 group-hover:shadow-[0_6px_20px_rgba(201,166,94,0.28)]">
+                    <Icon className="h-6 w-6" />
                   </div>
 
                   {/* Heading */}
-                  <h3
-                    className="mt-5 font-serif text-[17px] font-bold leading-snug tracking-[-0.01em] text-[#231F1C] sm:text-[18px]"
-                    style={{
-                      fontFamily: "var(--font-serif), 'Playfair Display', Georgia, serif",
-                    }}
-                  >
+                  <h3 className="mt-5 font-serif text-xl sm:text-[22px] font-medium leading-snug tracking-[-0.01em] text-[#1B4332] transition-colors duration-200 group-hover:text-[#0C1910]">
                     {title}
                   </h3>
 
                   {/* Description */}
-                  <p
-                    className="mt-2 font-sans text-[14px] leading-relaxed text-[#6B6560]"
-                    style={{
-                      fontFamily: "var(--font-sans), Inter, system-ui, sans-serif",
-                    }}
-                  >
+                  <p className="mt-2.5 font-sans text-sm leading-relaxed text-[#1B4332]/70">
                     {description}
                   </p>
                 </div>
               </article>
             ))}
+          </div>
+
+          {/* Delicate transitional closing element */}
+          <div className="mt-10 sm:mt-12 flex items-center justify-center gap-3 select-none" aria-hidden="true">
+            <span className="h-px w-10 sm:w-16 bg-[#C9A65E]/30" />
+            <span className="h-1.5 w-1.5 rounded-full bg-[#C9A65E]/50" />
+            <span className="h-px w-10 sm:w-16 bg-[#C9A65E]/30" />
           </div>
         </div>
       </div>

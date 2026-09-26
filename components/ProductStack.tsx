@@ -9,6 +9,7 @@ import { useState } from "react";
 const productCategories: Record<string, string> = {
   "Butterfly Pea Blue Tea": "CALMING",
   "Chamomile Lemon": "CALMING",
+  "Chamomile Clove Lemon": "GROUNDING",
   "Clove Lemon": "GROUNDING",
   "Hibiscus Lemon Balm": "REFRESHING",
   "Lemon Fennel": "DIGESTIVE",
@@ -22,7 +23,7 @@ const collectionNames = [
   "Butterfly Pea Blue Tea",
   "Lemon Tulsi",
   "Chamomile Lemon",
-  "Clove Lemon",
+  "Chamomile Clove Lemon",
   "Hibiscus Lemon Balm",
   "Lemon Turmeric",
   "Lemon Fennel",
@@ -31,7 +32,7 @@ const collectionNames = [
 ];
 
 const collectionProducts = collectionNames
-  .map((name) => products.find((product) => product.name === name))
+  .map((name) => products.find((product) => product.name === name || (name === "Chamomile Clove Lemon" && product.id === "clove-lemon")))
   .filter((product): product is (typeof products)[number] => Boolean(product));
 
 const categories = ["ALL", "CALMING", "CITRUS", "GROUNDING", "DIGESTIVE", "REFRESHING", "ENERGIZING"];
@@ -45,9 +46,23 @@ const categoryStyles: Record<string, string> = {
   ENERGIZING: "#E8F0DD",
 };
 
+const productCardBg: Record<string, string> = {
+  "Butterfly Pea Blue Tea": "#EEF5F2",
+  "Lemon Tulsi": "#F3E8DB",
+  "Chamomile Lemon": "#EEF5F2",
+  "Chamomile Clove Lemon": "#F3E8DB",
+  "Clove Lemon": "#F3E8DB",
+  "Hibiscus Lemon Balm": "#F6E6E5",
+  "Lemon Turmeric": "#F3E8DB",
+  "Lemon Fennel": "#EEF1DE",
+  "Lemon Ginger": "#F3E8DB",
+  "Moringa Lemongrass": "#E8F0DD",
+};
+
 const catalogDetails: Record<string, { rating: string; reviews: number; price: string; badges?: string[] }> = {
   "Butterfly Pea Blue Tea": { rating: "4.6", reviews: 238, price: "₹399", badges: ["Caffeine-Free"] },
   "Chamomile Lemon": { rating: "4.6", reviews: 162, price: "₹399", badges: ["Caffeine-Free"] },
+  "Chamomile Clove Lemon": { rating: "4.5", reviews: 119, price: "₹399" },
   "Clove Lemon": { rating: "4.5", reviews: 119, price: "₹399" },
   "Hibiscus Lemon Balm": { rating: "4.7", reviews: 207, price: "₹399", badges: ["Bestseller"] },
   "Lemon Fennel": { rating: "4.5", reviews: 131, price: "₹399" },
@@ -59,9 +74,10 @@ const catalogDetails: Record<string, { rating: string; reviews: number; price: s
 
 function StarRating({ rating, reviews }: { rating: string; reviews: number }) {
   return (
-    <div className="mt-3 flex items-center gap-2 text-xs" aria-label={`${rating} out of 5 stars from ${reviews} reviews`}>
+    <div className="mt-3 flex items-center gap-2 font-sans text-xs" aria-label={`${rating} out of 5 stars from ${reviews} reviews`}>
       <span className="tracking-[0.12em] text-[#B88D27]" aria-hidden="true">★★★★<span className="text-[#B88D27]/35">★</span></span>
-      <span className="text-[#52615A]">{rating} ({reviews})</span>
+      <span className="font-semibold text-[#1B4332]">{rating}</span>
+      <span className="text-[#52615A]">({reviews})</span>
     </div>
   );
 }
@@ -82,24 +98,24 @@ export default function ProductStack() {
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         <div className="mb-8">
           <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-[#6E7772]">The collection</p>
-            <h2 className="mt-3 font-serif text-4xl text-[#073B32] md:text-5xl">Nine mindful blends for every ritual.</h2>
+            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.18em] text-[#6E7772]">The collection</p>
+            <h2 className="mt-3 font-serif text-3xl sm:text-4xl lg:text-5xl font-normal leading-[1.15] tracking-[-0.02em] text-[#073B32]">Nine mindful blends for every ritual.</h2>
           </div>
         </div>
 
         <div className="mb-5 flex items-end justify-between gap-4">
-          <p className="text-sm text-[#1B4332]/55">{visibleProducts.length} {visibleProducts.length === 1 ? "blend" : "blends"}</p>
-          <p className="hidden text-[10px] uppercase tracking-[0.2em] text-[#1B4332]/45 sm:block">Whole leaf · plant-based bags</p>
+          <p className="font-sans text-sm text-[#1B4332]/60">{visibleProducts.length} {visibleProducts.length === 1 ? "blend" : "blends"}</p>
+          <p className="hidden font-sans text-[11px] font-semibold uppercase tracking-[0.18em] text-[#1B4332]/50 sm:block">Whole leaf · plant-based bags</p>
         </div>
 
-        <div className="mb-10 flex gap-2 overflow-x-auto pb-2 [scrollbar-width:none] md:flex-wrap md:overflow-visible">
+        <div className="mb-10 flex gap-2 overflow-x-auto pb-2 [scrollbar-width:none] touch-pan-x -mx-1 px-1 md:flex-wrap md:overflow-visible">
           {categories.map((category) => (
             <button
               key={category}
               type="button"
               aria-pressed={activeCategory === category}
               onClick={() => setActiveCategory(category)}
-              className={`relative shrink-0 rounded-full border px-4 py-2 text-[10px] font-medium uppercase tracking-[0.18em] transition-all duration-300 after:absolute after:bottom-[-6px] after:left-1/2 after:h-px after:-translate-x-1/2 after:bg-[#D4A017] after:transition-all after:duration-300 ${
+              className={`relative shrink-0 min-h-[44px] rounded-full border px-4 py-2.5 font-sans text-[11px] font-semibold uppercase tracking-[0.18em] transition-all duration-300 cursor-pointer after:absolute after:bottom-[-6px] after:left-1/2 after:h-px after:-translate-x-1/2 after:bg-[#D4A017] after:transition-all after:duration-300 ${
                 activeCategory === category
                   ? "border-[#1B4332] bg-[#1B4332] text-white after:w-8"
                   : "border-[#1B4332]/20 bg-transparent text-[#1B4332]/68 after:w-0 hover:border-[#1B4332]/55 hover:text-[#1B4332] hover:after:w-4"
@@ -111,13 +127,13 @@ export default function ProductStack() {
           ))}
         </div>
 
-        <div className="mb-10 grid gap-4 border-y border-[#1B4332]/10 py-5 text-sm text-[#1B4332]/65 sm:grid-cols-3">
+        <div className="mb-10 grid gap-4 border-y border-[#1B4332]/10 py-5 font-sans text-sm text-[#1B4332]/70 sm:grid-cols-3">
           <p><strong className="font-semibold text-[#1B4332]">4.7★</strong> average rating</p>
           <p><strong className="font-semibold text-[#1B4332]">1,200+</strong> verified reviews</p>
           <p><strong className="font-semibold text-[#1B4332]">50,000+</strong> cups brewed</p>
         </div>
 
-        <div key={activeCategory} className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div key={activeCategory} className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {visibleProducts.map((product, index) => (
             (() => {
               const category = productCategories[product.name] ?? "BOTANICAL";
@@ -127,43 +143,64 @@ export default function ProductStack() {
               return (
             <article
               key={product.id}
-              className="group flex min-h-[625px] animate-[catalog-card-in_500ms_ease_both] flex-col overflow-hidden rounded-[1.25rem] border border-[#1B4332]/[0.08] shadow-[0_18px_48px_rgba(27,67,50,0.07)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_26px_62px_rgba(27,67,50,0.14)]"
-              style={{ backgroundColor: categoryStyles[category] ?? "#FFFFFF", animationDelay: `${index * 55}ms` }}
+              className="group flex min-h-[625px] flex-col overflow-hidden rounded-[1.25rem] border border-[#1B4332]/[0.08] shadow-[0_16px_40px_rgba(27,67,50,0.06)] transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_26px_56px_rgba(27,67,50,0.13),0_6px_18px_rgba(27,67,50,0.06)] will-change-transform animate-[catalog-card-in_500ms_ease_both]"
+              style={{ backgroundColor: productCardBg[product.name] ?? categoryStyles[category] ?? "#FFFFFF", animationDelay: `${index * 55}ms` }}
             >
-              <div className="relative flex h-[300px] items-center justify-center px-8 py-10 md:h-[330px]">
-                <Link href={`/products/${product.slug}`} aria-label={`View ${product.name}`} className="relative h-full w-full max-w-[220px] transition-transform duration-500 ease-out group-hover:scale-[1.03]">
-                  <Image
-                    src={product.images.hero}
-                    alt={product.name}
-                    fill
-                    sizes="(max-width: 767px) 80vw, (max-width: 1280px) 28vw, 22vw"
-                    className="absolute inset-0 h-full w-full object-contain transition-opacity duration-500 ease-out group-hover:opacity-0"
-                    priority={index < 3}
+              <div className="relative flex h-[310px] items-center justify-center px-6 pt-8 pb-5 md:h-[335px]">
+                <Link
+                  href={`/products/${product.slug}`}
+                  aria-label={`View ${product.name}`}
+                  className="relative flex h-full w-full max-w-[275px] sm:max-w-[285px] items-center justify-center"
+                >
+                  {/* Subtle soft grounding shadow beneath the product box & ingredients */}
+                  <div
+                    className="pointer-events-none absolute bottom-1 left-1/2 h-6 w-[74%] -translate-x-1/2 rounded-[50%] bg-[#0B241B]/[0.09] blur-md transition-all duration-500 ease-out group-hover:w-[80%] group-hover:bg-[#0B241B]/[0.13] group-hover:blur-lg"
+                    aria-hidden="true"
                   />
-                  <Image
-                    src={product.images.ingredients}
-                    alt={`${product.name} ingredients`}
-                    fill
-                    sizes="(max-width: 767px) 80vw, (max-width: 1280px) 28vw, 22vw"
-                    className="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100"
-                    loading="lazy"
-                  />
+                  <div className="relative h-full w-full">
+                    <Image
+                      src={product.images.hero}
+                      alt={product.name}
+                      fill
+                      sizes="(max-width: 767px) 85vw, (max-width: 1280px) 30vw, 24vw"
+                      className="object-contain drop-shadow-[0_12px_18px_rgba(0,0,0,0.09)] drop-shadow-[0_3px_5px_rgba(0,0,0,0.05)]"
+                      priority={index < 3}
+                    />
+                  </div>
                 </Link>
-                <button type="button" aria-label={`Quick view ${product.name}`} className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border border-[#1B4332]/15 bg-white/70 text-sm text-[#1B4332]/65 opacity-0 shadow-sm transition-all duration-300 hover:bg-white group-hover:opacity-100">i</button>
+                <Link
+                  href={`/products/${product.slug}`}
+                  aria-label={`View ${product.name} details`}
+                  className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border border-[#1B4332]/15 bg-white/70 text-sm text-[#1B4332]/65 opacity-0 shadow-sm transition-all duration-300 hover:bg-white hover:text-[#1B4332] group-hover:opacity-100 cursor-pointer"
+                >
+                  i
+                </Link>
               </div>
 
               <div className="flex flex-1 flex-col px-7 pb-7 pt-3">
                 <div className="flex items-center justify-between gap-3">
-                  <p className="text-[10px] font-medium uppercase tracking-[0.24em] text-[#6E7772]">{category}</p>
-                  <div className="flex gap-1">{details.badges?.map((badge) => <span key={badge} className="rounded-full bg-white/60 px-2 py-1 text-[8px] uppercase tracking-[0.12em] text-[#1B4332]/65">{badge}</span>)}</div>
+                  <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.18em] text-[#6E7772]">{category}</p>
+                  <div className="flex gap-1">{details.badges?.map((badge) => <span key={badge} className="rounded-full bg-white/60 px-2 py-1 font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-[#1B4332]/70">{badge}</span>)}</div>
                 </div>
-                <Link href={`/products/${product.slug}`} className="mt-2 font-serif text-2xl font-medium leading-tight text-[#26342D] transition-colors hover:text-[#B88D27]">{product.name}</Link>
+                <Link
+                  href={`/products/${product.slug}`}
+                  className="group/title mt-2 inline-flex items-center gap-1.5 font-serif text-2xl font-medium leading-tight text-[#1B4332] visited:text-[#1B4332] transition-colors duration-200 hover:text-[#B88D27] hover:underline decoration-[#B88D27]/50 underline-offset-4 decoration-1 cursor-pointer w-fit"
+                  aria-label={`View ${product.name}`}
+                >
+                  <span>{product.name}</span>
+                  <span
+                    className="inline-block font-sans text-base text-[#B88D27] transition-transform duration-200 group-hover/title:translate-x-1"
+                    aria-hidden="true"
+                  >
+                    →
+                  </span>
+                </Link>
                 <StarRating rating={details.rating} reviews={details.reviews} />
-                <p className="mt-3 line-clamp-2 text-sm leading-5 text-[#1B4332]/62">{product.tagline}</p>
+                <p className="mt-3 line-clamp-2 font-sans text-sm leading-relaxed text-[#1B4332]/70">{product.tagline}</p>
                 <div className="mt-auto flex items-end justify-between gap-3 pt-6">
                   <div>
-                    <p className="text-lg font-semibold text-[#1B4332]">{details.price}</p>
-                    <p className="mt-1 text-[10px] uppercase tracking-[0.16em] text-[#1B4332]/50">{packSize}</p>
+                    <p className="font-sans text-lg font-semibold text-[#1B4332]">{details.price}</p>
+                    <p className="mt-1 font-sans text-[11px] uppercase tracking-[0.16em] text-[#1B4332]/55">{packSize}</p>
                   </div>
                   <a
                     href={product.amazonUrl || AMAZON_URL}
@@ -189,13 +226,15 @@ export default function ProductStack() {
           ))}
         </div>
 
-        <div className="mt-12 flex flex-col items-center gap-4 border-t border-[#1B4332]/10 pt-10 text-center">
-          <p className="text-sm text-[#1B4332]/60">Plant-based tea bags, packed for a clean daily ritual.</p>
+        {/* TAGLINE & CTA BUTTON */}
+        <div className="mt-14 sm:mt-16 flex flex-col items-center gap-4 border-t border-[#1B4332]/10 pt-10 pb-2 text-center">
+          <p className="font-sans text-sm text-[#1B4332]/65">Plant-based tea bags, packed for a clean daily ritual.</p>
           <a
             href="/shop"
-            className="brand-cta gap-3 px-7 py-3.5 text-[10px]"
+            className="group inline-flex items-center justify-center gap-3 rounded-full bg-[#C9A65E] px-8 py-3.5 font-sans text-xs font-semibold uppercase tracking-[0.16em] text-[#1B4332] shadow-[0_10px_24px_rgba(201,166,94,0.24)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-[#BA9348] hover:shadow-[0_14px_28px_rgba(201,166,94,0.32)] active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-[#C9A65E]/60"
           >
-            Shop the Full Collection <span aria-hidden="true">→</span>
+            <span>Shop the Full Collection</span>
+            <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-1">→</span>
           </a>
         </div>
       </div>

@@ -1,303 +1,289 @@
 "use client";
 
 import React from "react";
-
-function LeafIcon({ className = "h-6 w-6" }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-      aria-hidden="true"
-    >
-      <path d="M19.5 4.5C13 4.8 7.7 7 6 11.1c-1.3 3.2.5 6.6 3.9 6.7 4.4.1 7.4-4.4 9.6-13.3Z" />
-      <path d="M4.5 20c2.1-4.5 5.8-7.3 11.2-9.2" />
-    </svg>
-  );
-}
-
-function SunIcon({ className = "h-6 w-6" }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-      aria-hidden="true"
-    >
-      <circle cx="12" cy="12" r="4" />
-      <path d="M12 2v2" />
-      <path d="M12 20v2" />
-      <path d="m4.93 4.93 1.41 1.41" />
-      <path d="m17.66 17.66 1.41 1.41" />
-      <path d="M2 12h2" />
-      <path d="M20 12h2" />
-      <path d="m6.34 17.66-1.41 1.41" />
-      <path d="m19.07 4.93-1.41 1.41" />
-    </svg>
-  );
-}
-
-function PackageIcon({ className = "h-6 w-6" }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-      aria-hidden="true"
-    >
-      <path d="m21.12 6.4-9-4a2 2 0 0 0-1.64 0l-9 4A2 2 0 0 0 1 8.2v7.6a2 2 0 0 0 1.12 1.8l9 4a2 2 0 0 0 1.64 0l9-4A2 2 0 0 0 23 15.8V8.2a2 2 0 0 0-1.12-1.8Z" />
-      <path d="m2.7 7.5 9.3 4.2 9.3-4.2" />
-      <path d="M12 11.7V22" />
-    </svg>
-  );
-}
-
-function RecycleIcon({ className = "h-6 w-6" }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-      aria-hidden="true"
-    >
-      <path d="M7 19H4.81a2 2 0 0 1-1.78-2.9l2.42-4.52" />
-      <path d="M11 19h8.2a2 2 0 0 0 1.78-2.9l-2.42-4.52" />
-      <path d="M15.5 5h-7a2 2 0 0 0-1.78 1.1L4.2 11" />
-      <path d="m18 2 3 3-3 3" />
-      <path d="m9 22-3-3 3-3" />
-      <path d="m5 13-3-3 3-3" />
-    </svg>
-  );
-}
-
-function TruckIcon({ className = "h-6 w-6" }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-      aria-hidden="true"
-    >
-      <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" />
-      <path d="M14 8h4.5a2 2 0 0 1 1.6.8L23 13v4a1 1 0 0 1-1 1h-2" />
-      <circle cx="7.5" cy="18.5" r="2.5" />
-      <circle cx="17.5" cy="18.5" r="2.5" />
-    </svg>
-  );
-}
+import Image from "next/image";
+import { motion } from "framer-motion";
 
 interface ProcessStep {
   step: string;
-  icon: (props: { className?: string }) => React.JSX.Element;
+  image: string;
+  alt: string;
   title: string;
   description: string;
   side: "left" | "right";
+  phase: string;
 }
 
 const steps: ProcessStep[] = [
   {
     step: "01",
-    icon: LeafIcon,
+    image: "/images/process/step_1_harvest.webp",
+    alt: "Hands carefully selecting freshly harvested whole botanical tea leaves",
     title: "Carefully Sourced Botanicals",
     description: "Premium herbs selected from trusted growers.",
     side: "left",
+    phase: "Ethical Harvest",
   },
   {
     step: "02",
-    icon: SunIcon,
+    image: "/images/process/step_2_dried.webp",
+    alt: "Whole dried botanicals and chamomile flowers naturally curing on rustic linen",
     title: "Naturally Dried",
     description: "Preserving aroma, flavour, and character.",
     side: "right",
+    phase: "Natural Curing",
   },
   {
     step: "03",
-    icon: PackageIcon,
+    image: "/images/process/step_3_pyramid.webp",
+    alt: "Pyramid tea bag filled with vibrant whole botanical herbs and flowers",
     title: "Packed In Pyramid Bags",
     description: "More room for herbs to fully infuse.",
     side: "left",
+    phase: "Whole-Leaf Cut",
   },
   {
     step: "04",
-    icon: RecycleIcon,
+    image: "/images/process/step_4_biodegradable.webp",
+    alt: "Plant-based biodegradable pyramid tea bag with natural string and tag",
     title: "Plant-Based & Biodegradable",
     description: "Designed with sustainability in mind.",
     side: "right",
-  },
-  {
-    step: "05",
-    icon: TruckIcon,
-    title: "Delivered Through Amazon",
-    description: "Fast shipping, secure checkout, easy returns.",
-    side: "left",
+    phase: "Zero-Plastic Bags",
   },
 ];
+
+// Smooth curved connector from left card to center node
+function CurvedConnectorLeft() {
+  return (
+    <svg
+      viewBox="0 0 56 40"
+      fill="none"
+      className="h-10 w-8 shrink-0 text-[#C89B3C] lg:w-12"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id="connector-grad-left" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#1B4332" stopOpacity="0.3" />
+          <stop offset="50%" stopColor="#2F6146" stopOpacity="0.6" />
+          <stop offset="100%" stopColor="#B88D27" stopOpacity="0.9" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M 0,20 C 18,10 38,30 56,20"
+        stroke="url(#connector-grad-left)"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        vectorEffect="non-scaling-stroke"
+      />
+    </svg>
+  );
+}
+
+// Smooth curved connector from center node to right card
+function CurvedConnectorRight() {
+  return (
+    <svg
+      viewBox="0 0 56 40"
+      fill="none"
+      className="h-10 w-8 shrink-0 text-[#C89B3C] lg:w-12"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id="connector-grad-right" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#B88D27" stopOpacity="0.9" />
+          <stop offset="50%" stopColor="#2F6146" stopOpacity="0.6" />
+          <stop offset="100%" stopColor="#1B4332" stopOpacity="0.3" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M 0,20 C 18,30 38,10 56,20"
+        stroke="url(#connector-grad-right)"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        vectorEffect="non-scaling-stroke"
+      />
+    </svg>
+  );
+}
 
 export default function OurProcess() {
   return (
     <section
+      id="process"
       aria-labelledby="our-process-heading"
-      className="bg-[#FAF6F0] px-4 py-16 sm:px-6 sm:py-20 md:py-24 lg:px-8"
+      className="bg-[#FAF6F0] px-4 py-16 sm:px-6 sm:py-20 md:py-24 lg:px-8 overflow-hidden"
     >
       {/* SECTION HEADER */}
       <div className="mx-auto max-w-3xl text-center">
-        <p className="text-[13px] font-bold uppercase tracking-[0.2em] text-[#B5651D]">
+        <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.18em] text-[#B5651D]">
           Our Process
         </p>
         <h2
           id="our-process-heading"
-          className="mt-3 font-serif text-3xl font-bold tracking-tight text-[#231F1C] sm:text-4xl md:text-5xl lg:text-[48px]"
-          style={{
-            fontFamily: "var(--font-serif), 'Playfair Display', Georgia, serif",
-          }}
+          className="mt-3 font-serif text-3xl sm:text-4xl lg:text-5xl font-normal leading-[1.15] tracking-[-0.02em] text-[#231F1C]"
         >
           From Farm To Cup
         </h2>
-        <p
-          className="mx-auto mt-4 max-w-2xl font-sans text-base leading-relaxed text-[#6E665D] sm:text-lg md:text-[18px]"
-          style={{
-            fontFamily: "var(--font-sans), Inter, system-ui, sans-serif",
-          }}
-        >
+        <p className="mx-auto mt-4 max-w-2xl font-sans text-base leading-relaxed text-[#6E665D] sm:text-[17px]">
           A thoughtful path from whole botanicals to the cup waiting in your kitchen.
         </p>
       </div>
 
-      {/* TIMELINE CONTAINER */}
-      <div className="relative mx-auto mt-14 max-w-5xl sm:mt-18 md:mt-20">
+      {/* TIMELINE CONTAINER (max-w-4xl for balanced whitespace) */}
+      <div className="relative mx-auto mt-14 max-w-4xl sm:mt-18 md:mt-20">
         {/* ========================================================================= */}
-        {/* DESKTOP VIEW: 3-column CSS Grid with center line, alternating cards       */}
+        {/* DESKTOP VIEW (1025px+): 3-column Zigzag with spine, nodes & connectors     */}
         {/* ========================================================================= */}
-        <div className="relative hidden md:block">
-          {/* Central Vertical Line running through the center column */}
+        <div className="relative hidden lg:block">
+          {/* Soft Gradient Spine: Dark Green to Gold */}
           <div
-            className="absolute left-1/2 top-10 bottom-10 w-[2px] -translate-x-1/2 bg-[#D4A574]"
+            className="absolute left-1/2 top-8 bottom-8 w-[3px] -translate-x-1/2 rounded-full bg-gradient-to-b from-[#1B4332] via-[#2F6146] to-[#B88D27] shadow-[0_0_8px_rgba(27,67,50,0.15)]"
             aria-hidden="true"
           />
 
-          {/* 3-Column Grid: [Left Card Col] [Center Line/Node Col] [Right Card Col] */}
-          <div className="grid grid-cols-[1fr_64px_1fr] lg:grid-cols-[1fr_80px_1fr] gap-y-10 lg:gap-y-14 items-center">
-            {steps.map(({ step, icon: Icon, title, description, side }) => {
+          {/* Animated Flow Dashes along vertical spine */}
+          <svg
+            className="pointer-events-none absolute left-1/2 top-8 bottom-8 h-[calc(100%-64px)] w-2 -translate-x-1/2"
+            preserveAspectRatio="none"
+            viewBox="0 0 8 100"
+            aria-hidden="true"
+          >
+            <line
+              x1="4"
+              y1="0"
+              x2="4"
+              y2="100"
+              stroke="#F9E7B2"
+              strokeOpacity="0.75"
+              strokeWidth="2"
+              strokeDasharray="4 6"
+              className="animate-spine-flow"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+
+          {/* 3-Column Grid: [Left Slot] [Center Spine/Node] [Right Slot] with exact equal row spacing */}
+          <div className="grid grid-cols-[1fr_80px_1fr] gap-y-16 items-center">
+            {steps.map(({ step, image, alt, title, description, side, phase }, index) => {
               const isLeft = side === "left";
 
               return (
                 <React.Fragment key={step}>
-                  {/* COLUMN 1: LEFT CARD COLUMN */}
+                  {/* COLUMN 1: LEFT SLOT */}
                   <div className="flex h-full items-center justify-end">
                     {isLeft ? (
+                      /* Left Card with Curved S-Connector */
                       <div className="flex w-full items-center justify-end">
-                        <article className="w-full max-w-[420px] rounded-2xl border border-[#E7DFD4] bg-white p-6 shadow-[0_4px_20px_rgba(70,50,30,0.05)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_26px_rgba(70,50,30,0.08)]">
-                          <div className="flex items-center gap-4 text-left">
-                            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#D9E4D4] text-[#244234] shadow-[0_2px_6px_rgba(36,66,52,0.06)]">
-                              <Icon className="h-6 w-6" />
+                        <motion.article
+                          initial={{ opacity: 0, x: -24, y: 12 }}
+                          whileInView={{ opacity: 1, x: 0, y: 0 }}
+                          viewport={{ once: true, amount: 0.35 }}
+                          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                          className="group w-full max-w-[400px] min-h-[128px] flex items-center rounded-2xl border border-[#E7DFD4]/85 bg-white/95 p-5 lg:p-6 shadow-[0_4px_22px_rgba(40,55,45,0.05)] transition-all duration-300 hover:-translate-y-1 hover:border-[#B88D27]/35 hover:shadow-[0_12px_32px_rgba(40,55,45,0.09)]"
+                        >
+                          <div className="flex items-center gap-4 text-left w-full">
+                            <div className="relative h-[72px] w-[72px] shrink-0 overflow-hidden rounded-2xl border border-[#1B4332]/12 bg-[#FAF6F0] shadow-[0_4px_12px_rgba(27,67,50,0.08)] ring-1 ring-white/60">
+                              <Image
+                                src={image}
+                                alt={alt}
+                                fill
+                                sizes="72px"
+                                className="object-cover"
+                              />
                             </div>
                             <div className="min-w-0 flex-1">
-                              <h3
-                                className="font-serif text-[18px] font-bold leading-snug tracking-tight text-[#231F1C] sm:text-[20px]"
-                                style={{
-                                  fontFamily:
-                                    "var(--font-serif), 'Playfair Display', Georgia, serif",
-                                }}
-                              >
+                              <span className="font-sans text-[10px] font-semibold uppercase tracking-[0.2em] text-[#B88D27]">
+                                {phase}
+                              </span>
+                              <h3 className="mt-0.5 font-serif text-2xl font-medium leading-snug tracking-[-0.01em] text-[#231F1C]">
                                 {title}
                               </h3>
-                              <p
-                                className="mt-1 font-sans text-[14px] leading-relaxed text-[#6E665D]"
-                                style={{
-                                  fontFamily:
-                                    "var(--font-sans), Inter, system-ui, sans-serif",
-                                }}
-                              >
+                              <p className="mt-1 font-sans text-sm leading-relaxed text-[#6E665D]">
                                 {description}
                               </p>
                             </div>
                           </div>
-                        </article>
-                        {/* Horizontal connector line touching the node */}
-                        <div
-                          className="h-[2px] w-6 shrink-0 bg-[#D4A574] lg:w-10"
-                          aria-hidden="true"
-                        />
+                        </motion.article>
+
+                        {/* Smooth Curved S-Connector */}
+                        <CurvedConnectorLeft />
                       </div>
                     ) : (
-                      /* Empty spacer for right-side rows */
+                      /* Empty Space opposite right card */
                       <div className="w-full" aria-hidden="true" />
                     )}
                   </div>
 
-                  {/* COLUMN 2: CENTER LINE & NUMBERED NODE */}
-                  <div className="flex h-full items-center justify-center">
+                  {/* COLUMN 2: CENTER SPINE & NUMBERED NODE */}
+                  <div className="relative flex h-full items-center justify-center">
+                    {/* Consistent Outlined Node across all steps */}
                     <div
-                      className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border-2 border-[#D4A574] bg-white font-serif text-[16px] font-bold text-[#B5651D] shadow-sm"
-                      style={{
-                        fontFamily:
-                          "var(--font-serif), 'Playfair Display', Georgia, serif",
-                      }}
+                      className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full font-serif text-lg font-bold bg-white text-[#B5651D] border-2 border-[#D4A574] shadow-[0_4px_14px_rgba(70,50,30,0.08)] ring-4 ring-[#FAF6F0] transition-transform duration-300 hover:scale-105"
                       aria-label={`Step ${step}`}
                     >
                       {step}
                     </div>
+
+                    {/* Directional Downward Arrow Indicator */}
+                    {index < steps.length - 1 && (
+                      <div
+                        className="pointer-events-none absolute top-1/2 translate-y-[80px] -translate-x-1/2 left-1/2 z-10 flex h-6 w-6 items-center justify-center rounded-full border border-[#B88D27] bg-[#FAF6F0] text-[#B88D27] shadow-[0_2px_8px_rgba(184,141,39,0.22)]"
+                        aria-hidden="true"
+                      >
+                        <svg
+                          viewBox="0 0 14 14"
+                          className="h-3.5 w-3.5 fill-none stroke-[#B88D27] stroke-[2.2] stroke-linecap-round stroke-linejoin-round"
+                        >
+                          <path d="M3.5 5.25L7 8.75L10.5 5.25" />
+                        </svg>
+                      </div>
+                    )}
                   </div>
 
-                  {/* COLUMN 3: RIGHT CARD COLUMN */}
+                  {/* COLUMN 3: RIGHT SLOT */}
                   <div className="flex h-full items-center justify-start">
                     {!isLeft ? (
+                      /* Right Card with Curved S-Connector */
                       <div className="flex w-full items-center justify-start">
-                        {/* Horizontal connector line touching the node */}
-                        <div
-                          className="h-[2px] w-6 shrink-0 bg-[#D4A574] lg:w-10"
-                          aria-hidden="true"
-                        />
-                        <article className="w-full max-w-[420px] rounded-2xl border border-[#E7DFD4] bg-white p-6 shadow-[0_4px_20px_rgba(70,50,30,0.05)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_26px_rgba(70,50,30,0.08)]">
-                          {/* Mirrored layout: Text on left, icon on right */}
-                          <div className="flex items-center justify-between gap-4 text-left">
+                        {/* Smooth Curved S-Connector */}
+                        <CurvedConnectorRight />
+
+                        <motion.article
+                          initial={{ opacity: 0, x: 24, y: 12 }}
+                          whileInView={{ opacity: 1, x: 0, y: 0 }}
+                          viewport={{ once: true, amount: 0.35 }}
+                          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                          className="group w-full max-w-[400px] min-h-[128px] flex items-center rounded-2xl border border-[#E7DFD4]/85 bg-white/95 p-5 lg:p-6 shadow-[0_4px_22px_rgba(40,55,45,0.05)] transition-all duration-300 hover:-translate-y-1 hover:border-[#B88D27]/35 hover:shadow-[0_12px_32px_rgba(40,55,45,0.09)]"
+                        >
+                          <div className="flex items-center gap-4 text-left w-full">
+                            <div className="relative h-[72px] w-[72px] shrink-0 overflow-hidden rounded-2xl border border-[#1B4332]/12 bg-[#FAF6F0] shadow-[0_4px_12px_rgba(27,67,50,0.08)] ring-1 ring-white/60">
+                              <Image
+                                src={image}
+                                alt={alt}
+                                fill
+                                sizes="72px"
+                                className="object-cover"
+                              />
+                            </div>
                             <div className="min-w-0 flex-1">
-                              <h3
-                                className="font-serif text-[18px] font-bold leading-snug tracking-tight text-[#231F1C] sm:text-[20px]"
-                                style={{
-                                  fontFamily:
-                                    "var(--font-serif), 'Playfair Display', Georgia, serif",
-                                }}
-                              >
+                              <span className="font-sans text-[10px] font-semibold uppercase tracking-[0.2em] text-[#B88D27]">
+                                {phase}
+                              </span>
+                              <h3 className="mt-0.5 font-serif text-2xl font-medium leading-snug tracking-[-0.01em] text-[#231F1C]">
                                 {title}
                               </h3>
-                              <p
-                                className="mt-1 font-sans text-[14px] leading-relaxed text-[#6E665D]"
-                                style={{
-                                  fontFamily:
-                                    "var(--font-sans), Inter, system-ui, sans-serif",
-                                }}
-                              >
+                              <p className="mt-1 font-sans text-sm leading-relaxed text-[#6E665D]">
                                 {description}
                               </p>
                             </div>
-                            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#D9E4D4] text-[#244234] shadow-[0_2px_6px_rgba(36,66,52,0.06)]">
-                              <Icon className="h-6 w-6" />
-                            </div>
                           </div>
-                        </article>
+                        </motion.article>
                       </div>
                     ) : (
-                      /* Empty spacer for left-side rows */
+                      /* Empty Space opposite left card */
                       <div className="w-full" aria-hidden="true" />
                     )}
                   </div>
@@ -308,67 +294,128 @@ export default function OurProcess() {
         </div>
 
         {/* ========================================================================= */}
-        {/* MOBILE VIEW: Single column — vertical line & nodes on left, cards on right */}
+        {/* TABLET VIEW (768px-1024px): Single-column centered stack with spine       */}
         {/* ========================================================================= */}
-        <div className="relative block md:hidden">
-          {/* Vertical line running through the left-aligned nodes */}
+        <div className="relative hidden md:block lg:hidden mx-auto max-w-xl">
+          {/* Vertical spine running behind the numbered nodes */}
           <div
-            className="absolute left-[23px] top-6 bottom-6 w-[2px] bg-[#D4A574] sm:left-[27px]"
+            className="absolute left-[27px] top-6 bottom-6 w-[2.5px] rounded-full bg-gradient-to-b from-[#1B4332] via-[#2F6146] to-[#B88D27]"
             aria-hidden="true"
           />
 
-          <div className="space-y-6 sm:space-y-8">
-            {steps.map(({ step, icon: Icon, title, description }) => (
-              <div key={step} className="relative flex items-center gap-3 sm:gap-4">
-                {/* Numbered Node on the line */}
-                <div
-                  className="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-[#D4A574] bg-white font-serif text-[15px] font-bold text-[#B5651D] shadow-sm sm:h-12 sm:w-12 sm:text-[16px]"
-                  style={{
-                    fontFamily:
-                      "var(--font-serif), 'Playfair Display', Georgia, serif",
-                  }}
-                  aria-label={`Step ${step}`}
+          <div className="space-y-8">
+            {steps.map(({ step, image, alt, title, description, phase }, index) => (
+              <div key={step} className="relative">
+                <motion.div
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.45, delay: index * 0.06 }}
+                  className="relative flex items-center gap-5"
                 >
-                  {step}
-                </div>
-
-                {/* Short connector line */}
-                <div
-                  className="h-[2px] w-3 shrink-0 bg-[#D4A574] sm:w-5"
-                  aria-hidden="true"
-                />
-
-                {/* Card */}
-                <article className="min-w-0 flex-1 rounded-2xl border border-[#E7DFD4] bg-white p-5 shadow-[0_4px_20px_rgba(70,50,30,0.05)] sm:p-6">
-                  <div className="flex items-center gap-3.5 sm:gap-4 text-left">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#D9E4D4] text-[#244234] shadow-[0_2px_6px_rgba(36,66,52,0.06)] sm:h-12 sm:w-12">
-                      <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <h3
-                        className="font-serif text-[17px] font-bold leading-snug tracking-tight text-[#231F1C] sm:text-[19px]"
-                        style={{
-                          fontFamily:
-                            "var(--font-serif), 'Playfair Display', Georgia, serif",
-                        }}
-                      >
-                        {title}
-                      </h3>
-                      <p
-                        className="mt-1 font-sans text-[13px] leading-relaxed text-[#6E665D] sm:text-[14px]"
-                        style={{
-                          fontFamily:
-                            "var(--font-sans), Inter, system-ui, sans-serif",
-                        }}
-                      >
-                        {description}
-                      </p>
-                    </div>
+                  {/* Numbered Node on the spine */}
+                  <div
+                    className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full font-serif text-lg font-bold bg-white text-[#B5651D] border-2 border-[#D4A574] shadow-[0_4px_14px_rgba(70,50,30,0.08)] ring-4 ring-[#FAF6F0]"
+                    aria-label={`Step ${step}`}
+                  >
+                    {step}
                   </div>
-                </article>
+
+                  {/* Card */}
+                  <article className="group min-w-0 flex-1 rounded-2xl border border-[#E7DFD4]/85 bg-white/95 p-5 shadow-[0_4px_22px_rgba(40,55,45,0.05)] transition-all duration-300 hover:border-[#B88D27]/35 hover:shadow-[0_8px_28px_rgba(40,55,45,0.08)]">
+                    <div className="flex items-center gap-4 text-left">
+                      <div className="relative h-[72px] w-[72px] shrink-0 overflow-hidden rounded-xl border border-[#1B4332]/12 bg-[#FAF6F0] shadow-sm ring-1 ring-white/60">
+                        <Image
+                          src={image}
+                          alt={alt}
+                          fill
+                          sizes="72px"
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <span className="font-sans text-[10px] font-semibold uppercase tracking-[0.2em] text-[#B88D27]">
+                          {phase}
+                        </span>
+                        <h3 className="mt-0.5 font-serif text-xl font-medium leading-snug tracking-[-0.01em] text-[#231F1C]">
+                          {title}
+                        </h3>
+                        <p className="mt-1 font-sans text-sm leading-relaxed text-[#6E665D]">
+                          {description}
+                        </p>
+                      </div>
+                    </div>
+                  </article>
+                </motion.div>
+
+                {/* Arrow between nodes */}
+                {index < steps.length - 1 && (
+                  <div
+                    className="pointer-events-none absolute left-[27px] -translate-x-1/2 top-[calc(100%+14px)] z-10 flex h-5 w-5 items-center justify-center rounded-full border border-[#B88D27] bg-[#FAF6F0] text-[#B88D27] shadow-xs"
+                    aria-hidden="true"
+                  >
+                    <svg
+                      viewBox="0 0 14 14"
+                      className="h-2.5 w-2.5 fill-none stroke-[#B88D27] stroke-[2.2] stroke-linecap-round stroke-linejoin-round"
+                    >
+                      <path d="M3.5 5.25L7 8.75L10.5 5.25" />
+                    </svg>
+                  </div>
+                )}
               </div>
             ))}
           </div>
+        </div>
+
+        {/* ========================================================================= */}
+        {/* MOBILE VIEW (<768px): Fully stacked single-column without separate spine   */}
+        {/* ========================================================================= */}
+        <div className="relative block md:hidden space-y-4 sm:space-y-5">
+          {steps.map(({ step, image, alt, title, description, phase }, index) => (
+            <motion.article
+              key={step}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.4, delay: index * 0.05 }}
+              className="group relative w-full overflow-hidden rounded-2xl border border-[#E7DFD4]/90 bg-white p-4 shadow-[0_4px_18px_rgba(70,50,30,0.05)] transition-all duration-300"
+            >
+              <div className="flex items-start gap-3.5 text-left">
+                {/* Photo with Numbered Badge positioned at top-left */}
+                <div className="relative shrink-0">
+                  <div className="relative h-[68px] w-[68px] overflow-hidden rounded-xl border border-[#1B4332]/12 bg-[#FAF6F0] shadow-sm">
+                    <Image
+                      src={image}
+                      alt={alt}
+                      fill
+                      sizes="68px"
+                      className="object-cover"
+                    />
+                  </div>
+                  {/* Badge at top-left of photo */}
+                  <span
+                    className="absolute -top-1.5 -left-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-[#1B4332] text-white font-serif text-[11px] font-bold shadow-sm border border-[#F9E7B2]/40"
+                    aria-label={`Step ${step}`}
+                  >
+                    {step}
+                  </span>
+                </div>
+
+                {/* Content: [step label / phase] -> [title] -> [description] */}
+                <div className="min-w-0 flex-1">
+                  <span className="font-sans text-[10px] font-semibold uppercase tracking-[0.2em] text-[#B88D27]">
+                    {phase}
+                  </span>
+                  <h3 className="mt-0.5 font-serif text-lg font-medium leading-snug tracking-[-0.01em] text-[#231F1C]">
+                    {title}
+                  </h3>
+                  <p className="mt-1 font-sans text-xs leading-relaxed text-[#6E665D]">
+                    {description}
+                  </p>
+                </div>
+              </div>
+            </motion.article>
+          ))}
         </div>
       </div>
     </section>

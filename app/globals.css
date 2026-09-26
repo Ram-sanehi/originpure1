@@ -24,6 +24,7 @@ html {
   scroll-behavior: smooth;
   scroll-snap-type: y proximity;
   font-variant-numeric: lining-nums;
+  overflow-x: hidden;
 }
 
 body {
@@ -147,3 +148,92 @@ h4, h5, h6 {
     text-wrap: balance;
   }
 }
+
+/* Running Marquee Strip */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee-strip {
+  display: flex;
+  flex-shrink: 0;
+  width: max-content;
+  animation: marquee-scroll 45s linear infinite;
+  will-change: transform;
+}
+
+.marquee-container:hover .animate-marquee-strip,
+.marquee-container:active .animate-marquee-strip,
+.animate-marquee-strip:hover,
+.animate-marquee-strip:active {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-strip {
+    animation-play-state: paused;
+  }
+}
+
+/* Process Spine Flow Animation */
+@keyframes spine-dash-flow {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -24;
+  }
+}
+
+.animate-spine-flow {
+  animation: spine-dash-flow 2s linear infinite;
+}
+
+/* Vertical Hero Marquee Animations */
+@keyframes marquee-vertical-up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes marquee-vertical-down {
+  0% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-marquee-vertical-up {
+  animation: marquee-vertical-up 32s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-vertical-down {
+  animation: marquee-vertical-down 26s linear infinite;
+  will-change: transform;
+}
+
+.hero-marquee-wrapper:hover .animate-marquee-vertical-up,
+.hero-marquee-wrapper:hover .animate-marquee-vertical-down,
+.hero-marquee-wrapper:active .animate-marquee-vertical-up,
+.hero-marquee-wrapper:active .animate-marquee-vertical-down {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-vertical-up,
+  .animate-marquee-vertical-down {
+    animation-play-state: paused;
+  }
+}
+

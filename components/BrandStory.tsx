@@ -6,6 +6,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { waitForImagesReady } from "@/components/RevealImage";
+import IngredientsMarquee from "@/components/IngredientsMarquee";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,36 +15,6 @@ const folds = [
   "No additives. No artificial flavours.",
   "Plant-based tea bags. Clean ritual, naturally.",
 ];
-
-const ingredientCards = [
-  {
-    icon: "leaf",
-    name: "Lemongrass",
-    description: "Bright citrus lift for a clean finish.",
-  },
-  {
-    icon: "sprout",
-    name: "Moringa Leaves",
-    description: "Nourishing greens for steady daily support.",
-  },
-  {
-    icon: "sun",
-    name: "Green Tea Leaves",
-    description: "A smooth, grounded base for the ritual.",
-  },
-];
-
-function IngredientIcon({ type }: { type: string }) {
-  if (type === "sprout") {
-    return <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden="true"><path d="M12 20V9M12 13C8 13 6 10.6 6 7c3.8 0 6 2 6 6ZM12 10c.3-3.4 2.5-5.4 6-5.4 0 3.8-2.1 5.8-6 5.8Z" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round" /></svg>;
-  }
-
-  if (type === "sun") {
-    return <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="3.5" stroke="currentColor" strokeWidth="1.35" /><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" /></svg>;
-  }
-
-  return <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden="true"><path d="M19 4.5C12.5 4.8 7.5 7.1 6.2 11.2c-1 3.1.7 6 3.8 6.1 4.1.1 7-4.4 9-12.8Z" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round" /><path d="M4.5 20c2-4.3 5.5-7.1 10.7-9" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" /></svg>;
-}
 
 export default function BrandStory() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -78,47 +49,6 @@ export default function BrandStory() {
             onComplete: () => {
               gsap.set(phrase, { clearProps: "filter" });
             },
-          });
-        });
-
-        gsap.utils.toArray<HTMLElement>(".story-benefit-card").forEach((card, index) => {
-          gsap.fromTo(
-            card,
-            { opacity: 0, y: 30 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.7,
-              ease: "power2.out",
-              delay: index * 0.08,
-              scrollTrigger: {
-                trigger: card,
-                start: "top 90%",
-              },
-            }
-          );
-
-          const svg = card.querySelector("svg");
-          if (!svg) return;
-
-          const shapes = Array.from(svg.querySelectorAll("path, circle, line, polyline, polygon")) as SVGGeometryElement[];
-
-          shapes.forEach((shape) => {
-            const length = shape.getTotalLength();
-            gsap.set(shape, {
-              strokeDasharray: length,
-              strokeDashoffset: length,
-            });
-
-            gsap.to(shape, {
-              strokeDashoffset: 0,
-              duration: 1,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: card,
-                start: "top 90%",
-              },
-            });
           });
         });
 
@@ -171,21 +101,39 @@ export default function BrandStory() {
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(26,67,50,0.12),_transparent_36%)]" />
 
-      <div className="relative mx-auto grid max-w-7xl items-start gap-12 px-6 lg:grid-cols-[1fr_0.9fr] lg:gap-20 lg:px-12">
-        <div className="story-philosophy-image relative min-h-[460px] overflow-hidden rounded-[2rem] border border-[#D4A017]/20 bg-[#EDE8DC] shadow-[0_24px_70px_rgba(27,67,50,0.14)] lg:min-h-[650px]">
+      {/* TOP SECTION: Philosophy & Story */}
+      <div className="relative mx-auto grid max-w-7xl items-center gap-8 px-4 sm:gap-12 sm:px-6 lg:grid-cols-[1fr_0.9fr] lg:gap-20 lg:px-12">
+        <div className="story-philosophy-image relative min-h-[280px] xs:min-h-[340px] sm:min-h-[420px] overflow-hidden rounded-[2rem] border border-[#C9A65E]/30 bg-[#EDE8DC] shadow-[0_28px_64px_-16px_rgba(27,67,50,0.18),0_12px_28px_-8px_rgba(0,0,0,0.06)] ring-1 ring-[#C9A65E]/20 ring-offset-4 ring-offset-[#FDFDFD] lg:min-h-[560px] xl:min-h-[620px]">
           <Image
             src="/webimg/2.png"
-            alt="Botanical herbs prepared for an Origin Pure infusion"
+            alt="Botanical tea leaves harvested for an Origin Pure infusion"
             fill
             sizes="(max-width: 1024px) 100vw, 54vw"
             className="absolute inset-0 h-full w-full object-cover"
-            priority
           />
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(18,40,32,0.01)_55%,rgba(18,40,32,0.34)_100%)]" />
         </div>
 
         <div className="flex flex-col justify-center">
-          <p className="flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.28em] text-[#1B4332]/60"><span className="h-7 w-px bg-[#B88D27]" />GREEN TEA PHILOSOPHY</p>
+          <div className="flex items-center gap-2.5">
+            <span className="h-5 w-px bg-[#C9A65E]" aria-hidden="true" />
+            <svg
+              className="h-3.5 w-3.5 text-[#C9A65E]"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
+              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+            </svg>
+            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#C9A65E]">
+              GREEN TEA PHILOSOPHY
+            </p>
+          </div>
 
           <div className="mt-6 space-y-4">
             {folds.map((phrase, index) => (
@@ -198,7 +146,7 @@ export default function BrandStory() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.4 }}
                 transition={{ duration: 0.22, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                className="font-serif text-4xl leading-[1.05] tracking-[-0.045em] text-[#1B4332] md:text-5xl lg:text-[3.65rem]"
+                className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal leading-[1.12] tracking-[-0.02em] text-[#1B4332]"
               >
                 {phrase}
               </motion.p>
@@ -210,43 +158,124 @@ export default function BrandStory() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.35 }}
             transition={{ duration: 0.26, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-8 max-w-lg text-[15px] leading-7 text-[#1B4332]/65 md:text-base"
+            className="mt-6 sm:mt-8 max-w-lg font-sans text-base leading-relaxed text-[#1B4332]/70"
           >
             Origin Pure was shaped around one belief: tea should feel as clean and alive as the plants it comes from. We source the whole leaf, skip the fluff, and keep the ritual simple, grounded, and plant-first.
           </motion.p>
 
+          {/* Minimal 3-pillar stat/callouts to balance vertical height */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{ duration: 0.3, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-8 grid grid-cols-3 gap-3 border-t border-[#1B4332]/12 pt-6 sm:mt-10 sm:gap-4 sm:pt-8"
+          >
+            <div className="flex flex-col">
+              <span className="font-serif text-base font-medium tracking-tight text-[#1B4332] sm:text-lg">
+                Whole Leaf
+              </span>
+              <span className="mt-1 font-sans text-[11px] sm:text-xs text-[#1B4332]/65">
+                Pure unbroken botanicals
+              </span>
+            </div>
 
+            <div className="flex flex-col border-l border-[#1B4332]/12 pl-3 sm:pl-4">
+              <span className="font-serif text-base font-medium tracking-tight text-[#1B4332] sm:text-lg">
+                No Additives
+              </span>
+              <span className="mt-1 font-sans text-[11px] sm:text-xs text-[#1B4332]/65">
+                Zero essences or fillers
+              </span>
+            </div>
+
+            <div className="flex flex-col border-l border-[#1B4332]/12 pl-3 sm:pl-4">
+              <span className="font-serif text-base font-medium tracking-tight text-[#1B4332] sm:text-lg">
+                Plant-Based
+              </span>
+              <span className="mt-1 font-sans text-[11px] sm:text-xs text-[#1B4332]/65">
+                Biodegradable mesh
+              </span>
+            </div>
+          </motion.div>
         </div>
       </div>
 
-      <div className="relative mx-auto mt-16 max-w-7xl border-t border-[#1B4332]/12 px-6 pt-10 lg:px-12">
-        <div className="mb-6 max-w-xl">
-          <p className="text-[11px] uppercase tracking-[0.24em] text-[#1B4332]/55">what&apos;s inside</p>
-          <h2 className="mt-2 font-serif text-3xl text-[#1B4332] md:text-4xl">Three quiet essentials.</h2>
+      {/* BOTTOM SECTION: Ingredients Showcase */}
+      <div className="relative mx-auto mt-20 max-w-7xl border-t border-[#1B4332]/12 px-4 sm:px-6 pt-14 lg:mt-28 lg:px-12 lg:pt-18">
+        {/* Extremely faint (3.5% opacity) organic paper-grain texture across section background */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-multiply"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+          }}
+        />
+
+        {/* Barely-visible botanical line sprig illustration in the top-right corner */}
+        <svg
+          viewBox="0 0 160 160"
+          fill="none"
+          aria-hidden="true"
+          className="pointer-events-none absolute right-4 top-10 h-36 w-36 sm:right-10 sm:top-12 sm:h-48 sm:w-48 lg:right-16 lg:h-56 lg:w-56 text-[#1B4332]/[0.045] -rotate-12 select-none"
+        >
+          <path
+            d="M20 145C45 125 75 90 135 25"
+            stroke="currentColor"
+            strokeWidth="1.2"
+            strokeLinecap="round"
+          />
+          <path
+            d="M52 110C42 104 36 94 40 82C52 86 58 98 52 110Z"
+            stroke="currentColor"
+            strokeWidth="1"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M62 98C72 90 84 88 90 98C82 108 70 106 62 98Z"
+            stroke="currentColor"
+            strokeWidth="1"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M84 72C76 64 74 52 82 42C92 48 94 60 84 72Z"
+            stroke="currentColor"
+            strokeWidth="1"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M96 60C106 50 118 48 122 58C114 68 102 68 96 60Z"
+            stroke="currentColor"
+            strokeWidth="1"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M135 25C132 18 136 12 142 14C144 20 140 24 135 25Z"
+            stroke="currentColor"
+            strokeWidth="1"
+            strokeLinejoin="round"
+          />
+        </svg>
+
+        {/* Section Header */}
+        <div className="relative z-10 max-w-2xl">
+          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.18em] text-[#1B4332]/60">
+            what&apos;s inside
+          </p>
+          <h2 className="mt-2 font-serif text-3xl sm:text-4xl lg:text-5xl font-normal leading-[1.15] tracking-[-0.02em] text-[#1B4332]">
+            Every Pure Botanical We Brew.
+          </h2>
+          <p className="mt-3 font-sans text-sm sm:text-base leading-relaxed text-[#1B4332]/70">
+            Every blend is crafted exclusively with 100% whole botanicals, flowers, seeds, and leaves. No synthetic essences, no preservatives.
+          </p>
         </div>
 
-        <div className="grid gap-3 md:grid-cols-3 md:gap-4">
-          {ingredientCards.map((ingredient, index) => (
-            <motion.article
-              key={ingredient.name}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.24, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
-              className="story-benefit-card group flex items-start gap-3 border-t border-[#1B4332]/15 py-4 md:block md:border-t-0 md:border-l md:pl-4"
-            >
-              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#1B4332]/15 bg-[radial-gradient(circle,rgba(212,160,23,0.16),transparent_70%)] text-[#B88D27] shadow-[0_0_14px_rgba(212,160,23,0.08)] transition-shadow duration-300 group-hover:shadow-[0_0_24px_rgba(212,160,23,0.28)] md:mb-4">
-                <IngredientIcon type={ingredient.icon} />
-              </div>
-
-              <div>
-                <h3 className="font-serif text-xl text-[#1B4332]">{ingredient.name}</h3>
-                <p className="mt-1 text-sm leading-6 text-[#1B4332]/62">{ingredient.description}</p>
-              </div>
-            </motion.article>
-          ))}
+        {/* Running Marquee Ingredients Strip */}
+        <div className="relative z-10 mt-10 sm:mt-12">
+          <IngredientsMarquee />
         </div>
       </div>
     </section>
   );
 }
+

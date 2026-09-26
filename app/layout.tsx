@@ -1,8 +1,14 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { Fraunces } from "next/font/google";
 import "./globals.css";
 import ClientLayout from "@/components/ClientLayout";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#1B4332",
+};
 
 const inter = Inter({
   subsets: ["latin"],
@@ -40,9 +46,14 @@ export const metadata: Metadata = {
     follow: true,
   },
   icons: {
-    icon: "/prdimg/logo.jpeg",
-    shortcut: "/prdimg/logo.jpeg",
-    apple: "/prdimg/logo.jpeg",
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/prdimg/logo-circular.png", sizes: "512x512", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
   other: {
     "robots": "index,follow",
@@ -57,6 +68,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://www.amazon.in" />
+        <link rel="dns-prefetch" href="https://www.amazon.in" />
+      </head>
       <body className="bg-cream text-ink antialiased">
         <ClientLayout>{children}</ClientLayout>
       </body>

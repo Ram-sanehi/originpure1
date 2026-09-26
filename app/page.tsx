@@ -11,10 +11,8 @@ import ReviewsCarousel from "@/components/ReviewsCarousel";
 import WhyOriginPure from "@/components/WhyOriginPure";
 import StorySection from "@/components/StorySection";
 import FinalCTAFooter from "@/components/FinalCTAFooter";
-import StickyBuyBar from "@/components/StickyBuyBar";
 import BrandStory from "@/components/BrandStory";
 import ProductStack from "@/components/ProductStack";
-import TrustBar from "@/components/TrustBar";
 import ProductFeatures from "@/components/ProductFeatures";
 import OurProcess from "@/components/OurProcess";
 import PreferAmazon from "@/components/PreferAmazon";
@@ -121,13 +119,10 @@ export default function Home() {
 
       <div className="relative z-10">
         <HeroSection />
-        <TrustBar />
         <BrandStory />
         <ProductStack />
         <ProductFeatures />
-        <div className="-mt-4 md:-mt-6">
-          <RitualSection />
-        </div>
+        <RitualSection />
         <BenefitsSection />
         <HowToBrewSection />
         <ReviewsCarousel />
@@ -137,8 +132,6 @@ export default function Home() {
         <PreferAmazon />
         <FinalCTAFooter />
       </div>
-
-      <StickyBuyBar />
     </main>
   );
 }

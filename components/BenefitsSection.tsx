@@ -90,8 +90,8 @@ export default function BenefitsSection() {
               <div className="mx-auto flex h-9 w-9 items-center justify-center text-[#B88D27]">
                 <Icon className="h-7 w-7" />
               </div>
-              <h3 className="mt-2 text-sm font-semibold text-[#1B4332]">{label}</h3>
-              <p className="mx-auto mt-1 max-w-[150px] text-xs leading-5 text-[#1B4332]/60">{description}</p>
+              <h3 className="mt-2.5 font-serif text-base font-medium text-[#1B4332]">{label}</h3>
+              <p className="mx-auto mt-1 max-w-[150px] font-sans text-xs leading-relaxed text-[#1B4332]/65">{description}</p>
             </article>
           ))}
         </div>

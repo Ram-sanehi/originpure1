@@ -103,8 +103,8 @@ export default function RevealImage({
         onLoad={handleLoad}
         onError={handleError}
         className={[
-          "transition-all duration-500 ease-out",
-          isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-[1.02]",
+          "transition-opacity duration-500 ease-out",
+          isLoaded ? "opacity-100" : "opacity-0",
           className,
         ]
           .filter(Boolean)

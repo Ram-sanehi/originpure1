@@ -32,11 +32,24 @@ export interface SiteConfig {
   bagsPerPackFormatted: string;
   returnsText: string;
   amazonUrl: string;
+  instagramUrl: string;
+  instagramHandle: string;
   products: ProductItem[];
 }
 
+/**
+ * Generic site-wide Amazon URL for brand-level CTAs (Header, Hero, Prefer Amazon, Final CTA).
+ *
+ * NOTE / TODO: PLACEHOLDER FOR REPLACEMENT
+ * An official Amazon Brand Storefront page (e.g., https://www.amazon.in/stores/OriginPure/...)
+ * does not exist yet. Once a proper brand storefront URL is available, update this URL
+ * or define NEXT_PUBLIC_AMAZON_URL in your environment.
+ *
+ * Currently linked to Origin Pure's #1 bestselling flagship blend (Moringa Lemongrass, 4.8★ / 312 reviews):
+ * https://www.amazon.in/dp/B0HG3CGBP5
+ */
 const DEFAULT_AMAZON_URL =
-  process.env.NEXT_PUBLIC_AMAZON_URL || "https://www.amazon.in/dp/B0HG4S9PD2";
+  process.env.NEXT_PUBLIC_AMAZON_URL || "https://www.amazon.in/dp/B0HG3CGBP5";
 
 export const siteConfig: SiteConfig = {
   name: "Origin Pure",
@@ -48,10 +61,12 @@ export const siteConfig: SiteConfig = {
   cupsBrewedFormatted: "50,000+",
   price: "₹399",
   priceNumber: 399,
-  bagsPerPack: 25,
-  bagsPerPackFormatted: "25 pyramid bags",
+  bagsPerPack: 20,
+  bagsPerPackFormatted: "20 bags per pack",
   returnsText: "7-day easy returns",
   amazonUrl: DEFAULT_AMAZON_URL,
+  instagramUrl: "https://www.instagram.com/originpure.in/",
+  instagramHandle: "originpure.in",
 
   products: [
     {
@@ -62,10 +77,10 @@ export const siteConfig: SiteConfig = {
       caffeineFree: true,
       shortDescription: "Vibrant blue petals with a calming floral finish.",
       price: "₹399",
-      bags: 25,
+      bags: 20,
       rating: 4.6,
       reviewCount: 238,
-      amazonUrl: "https://www.amazon.in/dp/B0HG4S9PD2",
+      amazonUrl: "https://www.amazon.in/dp/B0HG9CJN2H",
       packshot: "/prdimg/ButterflyPea/1.png",
     },
     {
@@ -76,10 +91,10 @@ export const siteConfig: SiteConfig = {
       caffeineFree: false,
       shortDescription: "Clean lemon energy with tulsi’s grounding herbal finish.",
       price: "₹399",
-      bags: 25,
+      bags: 20,
       rating: 4.6,
       reviewCount: 176,
-      amazonUrl: "https://www.amazon.in/dp/B0HG4LRXX1",
+      amazonUrl: "https://www.amazon.in/dp/B0HG1Q7CT2",
       packshot: "/prdimg/LemonTulsi/1.png",
     },
     {
@@ -90,24 +105,24 @@ export const siteConfig: SiteConfig = {
       caffeineFree: true,
       shortDescription: "Soft chamomile and bright citrus for evening ease.",
       price: "₹399",
-      bags: 25,
+      bags: 20,
       rating: 4.6,
       reviewCount: 162,
-      amazonUrl: "https://www.amazon.in/dp/B0HG3CGBP5",
+      amazonUrl: "https://www.amazon.in/dp/B0HG4S9PD2",
       packshot: "/prdimg/ChamomileLemon/1.png",
     },
     {
       id: "clove-lemon",
       slug: "clove-lemon",
-      name: "Clove Lemon",
+      name: "Chamomile Clove Lemon",
       category: "GROUNDING",
       caffeineFree: false,
-      shortDescription: "Warm clove spice balanced by a sparkling citrus lift.",
+      shortDescription: "Floral warmth with mild spice — chamomile blossoms, warming clove, and citrus lift.",
       price: "₹399",
-      bags: 25,
+      bags: 20,
       rating: 4.5,
       reviewCount: 119,
-      amazonUrl: "https://www.amazon.in/dp/B0HG36XHC3",
+      amazonUrl: "https://www.amazon.in/dp/B0HG9J3ZDX",
       packshot: "/prdimg/CloveLemon/1.png",
     },
     {
@@ -118,10 +133,10 @@ export const siteConfig: SiteConfig = {
       caffeineFree: false,
       shortDescription: "A juicy hibiscus sip with a bright, herbal finish.",
       price: "₹399",
-      bags: 25,
+      bags: 20,
       rating: 4.7,
       reviewCount: 207,
-      amazonUrl: "https://www.amazon.in/dp/B0HG1Q7CT2",
+      amazonUrl: "https://www.amazon.in/dp/B0HG4LRXX1",
       packshot: "/prdimg/HibiscusLemonBalm/1.png",
     },
     {
@@ -132,10 +147,10 @@ export const siteConfig: SiteConfig = {
       caffeineFree: false,
       shortDescription: "Citrus brightness layered with golden turmeric warmth.",
       price: "₹399",
-      bags: 25,
+      bags: 20,
       rating: 4.7,
       reviewCount: 154,
-      amazonUrl: "https://www.amazon.in/dp/B0HG1XQTMJ",
+      amazonUrl: "https://www.amazon.in/dp/B0HG36XHC3",
       packshot: "/prdimg/LemonTurmeric/1.png",
     },
     {
@@ -146,10 +161,10 @@ export const siteConfig: SiteConfig = {
       caffeineFree: false,
       shortDescription: "Crisp lemon layered with anise-like fennel brightness.",
       price: "₹399",
-      bags: 25,
+      bags: 20,
       rating: 4.5,
       reviewCount: 131,
-      amazonUrl: "https://www.amazon.in/dp/B0HG9J3ZDX",
+      amazonUrl: "https://www.amazon.in/dp/B0HG4NN2V7",
       packshot: "/prdimg/LemonFennel/1.png",
     },
     {
@@ -160,10 +175,10 @@ export const siteConfig: SiteConfig = {
       caffeineFree: false,
       shortDescription: "A zingy citrus tea with warming ginger depth.",
       price: "₹399",
-      bags: 25,
+      bags: 20,
       rating: 4.8,
       reviewCount: 286,
-      amazonUrl: "https://www.amazon.in/dp/B0HG9CJN2H",
+      amazonUrl: "https://www.amazon.in/dp/B0HG1XQTMJ",
       packshot: "/prdimg/LemonGinger/1.png",
     },
     {
@@ -174,10 +189,10 @@ export const siteConfig: SiteConfig = {
       caffeineFree: false,
       shortDescription: "Fresh lemongrass and moringa for a clean, uplifted ritual.",
       price: "₹399",
-      bags: 25,
+      bags: 20,
       rating: 4.8,
       reviewCount: 312,
-      amazonUrl: "https://www.amazon.in/dp/B0HG4NN2V7",
+      amazonUrl: "https://www.amazon.in/dp/B0HG3CGBP5",
       packshot: "/prdimg/MoringaLemonGrass/1.png",
     },
   ],
