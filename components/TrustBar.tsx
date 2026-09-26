@@ -52,9 +52,9 @@ export default function TrustBar() {
       <div className="mx-auto flex max-w-7xl overflow-x-auto px-5 py-3.5 [scrollbar-width:none] md:justify-center md:overflow-visible md:px-10">
         <div className="flex min-w-max items-center gap-2.5 md:gap-4 lg:gap-7">
           {trustItems.map(({ label, icon: Icon }) => (
-            <div key={label} className="flex h-10 items-center gap-2.5 rounded-full border border-white/15 px-4 text-[10px] font-medium uppercase tracking-[0.16em] text-white/72 md:px-5">
+            <div key={label} className="flex h-10 items-center gap-2.5 rounded-full border border-white/15 px-4 text-[10px] font-medium uppercase tracking-[0.16em] text-white md:px-5" style={{ color: "#FFFFFF" }}>
               <Icon className="h-4 w-4 shrink-0 text-[#E4C56F]" />
-              <span>{label}</span>
+              <span style={{ color: "#FFFFFF" }}>{label}</span>
             </div>
           ))}
         </div>

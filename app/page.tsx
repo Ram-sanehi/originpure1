@@ -15,6 +15,9 @@ import StickyBuyBar from "@/components/StickyBuyBar";
 import BrandStory from "@/components/BrandStory";
 import ProductStack from "@/components/ProductStack";
 import TrustBar from "@/components/TrustBar";
+import ProductFeatures from "@/components/ProductFeatures";
+import OurProcess from "@/components/OurProcess";
+import PreferAmazon from "@/components/PreferAmazon";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -121,6 +124,7 @@ export default function Home() {
         <TrustBar />
         <BrandStory />
         <ProductStack />
+        <ProductFeatures />
         <div className="-mt-4 md:-mt-6">
           <RitualSection />
         </div>
@@ -129,6 +133,8 @@ export default function Home() {
         <ReviewsCarousel />
         <WhyOriginPure />
         <StorySection />
+        <OurProcess />
+        <PreferAmazon />
         <FinalCTAFooter />
       </div>
 

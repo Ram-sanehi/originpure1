@@ -6,7 +6,6 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { waitForImagesReady } from "@/components/RevealImage";
-import philosophyImage from "../images/2.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -175,8 +174,8 @@ export default function BrandStory() {
       <div className="relative mx-auto grid max-w-7xl items-start gap-12 px-6 lg:grid-cols-[1fr_0.9fr] lg:gap-20 lg:px-12">
         <div className="story-philosophy-image relative min-h-[460px] overflow-hidden rounded-[2rem] border border-[#D4A017]/20 bg-[#EDE8DC] shadow-[0_24px_70px_rgba(27,67,50,0.14)] lg:min-h-[650px]">
           <Image
-            src={philosophyImage}
-            alt="Fresh green tea leaves gathered by hand"
+            src="/webimg/2.png"
+            alt="Botanical herbs prepared for an Origin Pure infusion"
             fill
             sizes="(max-width: 1024px) 100vw, 54vw"
             className="absolute inset-0 h-full w-full object-cover"

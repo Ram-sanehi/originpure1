@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { products } from "@/lib/products";
 import { categories, categoryStyles, getProductCategory, getProductDetails, productCategories } from "@/lib/catalog";
+import { siteConfig } from "@/lib/site-config";
 
 function StarRating({ rating, reviews }: { rating: string; reviews: number }) {
   return (
@@ -33,7 +34,12 @@ export default function ShopCollection() {
     <main className="min-h-screen bg-[#F7F7F2] text-[#1B4332]">
       <header className="border-b border-[#1B4332]/10 bg-[#0B241B] px-6 py-8 text-[#FFF8E7] md:px-12">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-5">
-          <Link href="/" className="font-serif text-3xl tracking-tight">Origin Pure</Link>
+          <Link href="/" className="inline-flex items-center gap-3 font-serif text-3xl tracking-tight">
+            <div className="relative h-9 w-9 overflow-hidden rounded-full border border-white/20 shrink-0 bg-[#F7F7F7]">
+              <Image src="/prdimg/logo.jpeg" alt="Origin Pure Logo" fill sizes="36px" className="object-cover" />
+            </div>
+            <span>Origin Pure</span>
+          </Link>
           <Link href="/#collection" className="text-[10px] uppercase tracking-[0.2em] text-[#F9E7B2]">Back to home</Link>
         </div>
       </header>
@@ -46,9 +52,9 @@ export default function ShopCollection() {
         </div>
 
         <div className="my-12 grid gap-4 border-y border-[#1B4332]/10 py-5 text-sm text-[#1B4332]/65 sm:grid-cols-3">
-          <p><strong className="font-semibold text-[#1B4332]">4.7★</strong> average rating</p>
-          <p><strong className="font-semibold text-[#1B4332]">1,200+</strong> verified reviews</p>
-          <p><strong className="font-semibold text-[#1B4332]">50,000+</strong> cups brewed</p>
+          <p><strong className="font-semibold text-[#1B4332]">{siteConfig.ratingFormatted}★</strong> average rating</p>
+          <p><strong className="font-semibold text-[#1B4332]">{siteConfig.reviewCount}</strong> verified reviews</p>
+          <p><strong className="font-semibold text-[#1B4332]">{siteConfig.cupsBrewedFormatted}</strong> cups brewed</p>
         </div>
 
         <div className="flex flex-col gap-5 border-b border-[#1B4332]/10 pb-6 lg:flex-row lg:items-center lg:justify-between">

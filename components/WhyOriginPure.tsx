@@ -87,7 +87,7 @@ export default function WhyOriginPure() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden bg-[#0E211A]">
+    <section ref={sectionRef} className="relative overflow-hidden bg-[#0E211A] text-white">
       <div className="absolute inset-0">
         <RevealImage
           src="/prdimg/ButterflyPea/1.png"
@@ -103,18 +103,25 @@ export default function WhyOriginPure() {
       </div>
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(11,24,19,0.82)_0%,rgba(11,24,19,0.7)_45%,rgba(11,24,19,0.74)_100%)]" />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-6 py-14 lg:px-12 lg:py-20">
-        <div className="trust-badge-row rounded-[1.75rem] border border-white/10 bg-[linear-gradient(135deg,rgba(18,40,32,0.52),rgba(18,40,32,0.28))] p-4 shadow-[0_20px_55px_rgba(6,18,14,0.18)] backdrop-blur-[2px] md:p-5">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 py-14 lg:px-12 lg:py-20 text-white">
+        <div className="trust-badge-row rounded-[1.75rem] border border-white/20 bg-[linear-gradient(135deg,rgba(18,40,32,0.75),rgba(18,40,32,0.5))] p-4 shadow-[0_20px_55px_rgba(6,18,14,0.18)] backdrop-blur-[2px] md:p-5">
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {trustBadges.map(({ title, icon: Icon }) => (
               <div
                 key={title}
-                className="flex items-center gap-4 rounded-full border border-white/10 bg-white/8 px-4 py-3 backdrop-blur-sm shadow-[0_15px_40px_rgba(0,0,0,0.15)]"
+                className="flex items-center gap-4 rounded-full border border-white/20 bg-white/10 px-4 py-3 backdrop-blur-sm shadow-[0_15px_40px_rgba(0,0,0,0.15)] text-white"
+                style={{ color: "#FFFFFF" }}
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#FFF8E7]/12 text-[#F8E7B2]">
-                  <Icon className="h-6 w-6" />
+                <div
+                  className="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/15 text-white shadow-sm shrink-0"
+                  style={{ color: "#FFFFFF" }}
+                >
+                  <Icon className="h-6 w-6 text-white" />
                 </div>
-                <span className="text-sm font-medium tracking-[0.02em] text-white/90 sm:text-base">
+                <span
+                  className="text-sm font-semibold tracking-[0.02em] text-white sm:text-base"
+                  style={{ color: "#FFFFFF" }}
+                >
                   {title}
                 </span>
               </div>

@@ -35,7 +35,12 @@ export default function ProductPage({ product }: { product: Product }) {
     <main className="min-h-screen bg-[#F7F7F2] text-[#1B4332]">
       <header className="border-b border-[#1B4332]/10 bg-[#0B241B] px-6 py-8 text-[#FFF8E7] md:px-12">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-5">
-          <Link href="/" className="font-serif text-3xl tracking-tight">Origin Pure</Link>
+          <Link href="/" className="inline-flex items-center gap-3 font-serif text-3xl tracking-tight">
+            <div className="relative h-9 w-9 overflow-hidden rounded-full border border-white/20 shrink-0 bg-[#F7F7F7]">
+              <Image src="/prdimg/logo.jpeg" alt="Origin Pure Logo" fill sizes="36px" className="object-cover" />
+            </div>
+            <span>Origin Pure</span>
+          </Link>
           <Link href="/shop" className="text-[10px] uppercase tracking-[0.2em] text-[#F9E7B2]">Shop all blends</Link>
         </div>
       </header>
