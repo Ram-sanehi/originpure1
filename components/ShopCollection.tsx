@@ -95,18 +95,13 @@ export default function ShopCollection() {
               <article key={product.id} className="group flex min-h-[625px] flex-col overflow-hidden rounded-[1.25rem] border border-[#1B4332]/[0.08] shadow-[0_16px_40px_rgba(27,67,50,0.06)] transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_26px_56px_rgba(27,67,50,0.13),0_6px_18px_rgba(27,67,50,0.06)] will-change-transform" style={{ backgroundColor: getProductCardBg(product.name) }}>
                 <div className="relative flex h-[310px] items-center justify-center px-6 pt-8 pb-5 md:h-[335px]">
                   <Link href={`/products/${product.slug}`} aria-label={`View ${product.name}`} className="relative flex h-full w-full max-w-[275px] sm:max-w-[285px] items-center justify-center">
-                    {/* Subtle soft grounding shadow beneath the product box & ingredients */}
-                    <div
-                      className="pointer-events-none absolute bottom-1 left-1/2 h-6 w-[74%] -translate-x-1/2 rounded-[50%] bg-[#0B241B]/[0.09] blur-md transition-all duration-500 ease-out group-hover:w-[80%] group-hover:bg-[#0B241B]/[0.13] group-hover:blur-lg"
-                      aria-hidden="true"
-                    />
                     <div className="relative h-full w-full">
                       <Image
                         src={product.images.hero}
                         alt={product.name}
                         fill
                         sizes="(max-width: 767px) 85vw, (max-width: 1280px) 30vw, 24vw"
-                        className="object-contain drop-shadow-[0_12px_18px_rgba(0,0,0,0.09)] drop-shadow-[0_3px_5px_rgba(0,0,0,0.05)]"
+                        className="object-contain drop-shadow-[0_12px_22px_rgba(27,67,50,0.08)] drop-shadow-[0_3px_6px_rgba(0,0,0,0.04)] transition-transform duration-500 ease-out group-hover:scale-[1.03]"
                       />
                     </div>
                   </Link>

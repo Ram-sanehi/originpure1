@@ -118,11 +118,6 @@ export default function ProductPage({ product }: { product: Product }) {
                 className="pointer-events-none absolute left-1/2 top-1/2 h-[75%] w-[75%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,_rgba(201,166,94,0.18)_0%,_rgba(244,231,197,0.22)_45%,_transparent_72%)] blur-2xl"
                 aria-hidden="true"
               />
-              {/* Grounding shadow beneath product */}
-              <div
-                className="pointer-events-none absolute bottom-4 left-1/2 h-6 w-[70%] -translate-x-1/2 rounded-[50%] bg-[#0B241B]/[0.08] blur-md"
-                aria-hidden="true"
-              />
               {/* Subtle top ambient sheen */}
               <div
                 className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#1B4332]/[0.03] via-transparent to-white/50"

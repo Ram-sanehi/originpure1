@@ -136,8 +136,8 @@ export default function ProductFeatures() {
         </div>
       </div>
 
-      {/* 2. MAIN FEATURE GRID */}
-      <div className="relative bg-gradient-to-b from-[#EFE7DA] via-[#EDE4D8] to-[#E5DACB]/60 px-6 pt-12 pb-10 sm:pt-14 sm:pb-12 md:pt-16 md:pb-14 lg:px-12">
+      {/* 2. MAIN FEATURE GRID (Static grid at all breakpoints: 1 col mobile, 2 col tablet, 4 col desktop) */}
+      <div className="relative bg-gradient-to-b from-[#EFE7DA] via-[#EDE4D8] to-[#E5DACB]/60 px-6 py-12 sm:py-14 md:py-16 lg:px-12">
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 items-stretch">
             {/* 3. FEATURE CARDS */}
@@ -164,13 +164,6 @@ export default function ProductFeatures() {
                 </div>
               </article>
             ))}
-          </div>
-
-          {/* Delicate transitional closing element */}
-          <div className="mt-10 sm:mt-12 flex items-center justify-center gap-3 select-none" aria-hidden="true">
-            <span className="h-px w-10 sm:w-16 bg-[#C9A65E]/30" />
-            <span className="h-1.5 w-1.5 rounded-full bg-[#C9A65E]/50" />
-            <span className="h-px w-10 sm:w-16 bg-[#C9A65E]/30" />
           </div>
         </div>
       </div>
