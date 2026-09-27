@@ -20,19 +20,37 @@ export default function StickyBuyBar({ amazonUrl, productName }: StickyBuyBarPro
     const inlineCta = document.getElementById("inline-amazon-cta");
     const finalCta = document.querySelector("[data-final-cta]");
 
+    let inlineCtaBottom = 0;
+    const updateInlineCtaPos = () => {
+      if (inlineCta) {
+        const rect = inlineCta.getBoundingClientRect();
+        inlineCtaBottom = rect.bottom + window.scrollY;
+      }
+    };
+    updateInlineCtaPos();
+
+    let ticking = false;
     const checkVisibility = () => {
-      if (!inlineCta) return;
-      const rect = inlineCta.getBoundingClientRect();
-      // Only visible once the inline CTA has completely scrolled past above the top edge
-      const isPastInlineCta = rect.bottom < 0;
-      setVisible(isPastInlineCta);
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => {
+          const scrollY = window.scrollY || window.pageYOffset || 0;
+          setVisible(scrollY > inlineCtaBottom);
+          ticking = false;
+        });
+      }
     };
 
     // Run initial check
     checkVisibility();
 
+    const handleResize = () => {
+      updateInlineCtaPos();
+      checkVisibility();
+    };
+
     window.addEventListener("scroll", checkVisibility, { passive: true });
-    window.addEventListener("resize", checkVisibility, { passive: true });
+    window.addEventListener("resize", handleResize, { passive: true });
 
     let finalCtaObserver: IntersectionObserver | null = null;
     if (finalCta) {
@@ -50,7 +68,7 @@ export default function StickyBuyBar({ amazonUrl, productName }: StickyBuyBarPro
 
     return () => {
       window.removeEventListener("scroll", checkVisibility);
-      window.removeEventListener("resize", checkVisibility);
+      window.removeEventListener("resize", handleResize);
       if (finalCtaObserver) finalCtaObserver.disconnect();
     };
   }, []);

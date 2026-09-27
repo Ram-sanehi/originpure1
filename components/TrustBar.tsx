@@ -95,7 +95,7 @@ const trustItems: TrustItem[] = [
 ];
 
 export default function TrustBar({ className = "" }: { className?: string }) {
-  const sectionRef = useRef<HTMLElement | null>(null);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
 
@@ -128,21 +128,21 @@ export default function TrustBar({ className = "" }: { className?: string }) {
   }, []);
 
   return (
-    <section
+    <div
       ref={sectionRef}
       aria-label="Origin Pure standards"
-      className={`relative z-30 w-full overflow-hidden bg-transparent text-[#FAF6F0] py-10 sm:py-12 lg:py-16 ${className}`}
+      className={`trust-badge-row relative z-30 w-full bg-transparent text-[#FAF6F0] p-0 py-0 ${className}`}
     >
       {/* ================= SUBTLE RADIAL GLOW FOR DEPTH (NO BACKGROUND IMAGE) ================= */}
       <div
         className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden"
         aria-hidden="true"
       >
-        <div className="h-[280px] w-full max-w-4xl rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(38,88,58,0.26)_0%,_rgba(18,48,32,0.12)_45%,_transparent_72%)] blur-2xl" />
+        <div className="h-[200px] w-full max-w-4xl rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(38,88,58,0.26)_0%,_rgba(18,48,32,0.12)_45%,_transparent_72%)] blur-2xl" />
       </div>
 
       {/* ================= CONTENT CONTAINER ================= */}
-      <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-center px-4 sm:px-6 lg:px-10">
+      <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-center px-4 sm:px-6 lg:px-10 py-0 pb-2 sm:pb-3">
         {/* SINGLE PILL-SHAPED UNIFYING OUTER CONTAINER WRAPPING ALL 4 BADGES */}
         <div
           className={`inline-flex max-w-full items-center justify-center rounded-[2rem] sm:rounded-full border-[0.5px] border-white/12 bg-[linear-gradient(135deg,rgba(18,40,30,0.75)_0%,rgba(10,24,18,0.65)_100%)] p-2 xs:p-2.5 sm:p-2.5 md:p-3 shadow-[0_12px_36px_rgba(0,0,0,0.30)] backdrop-blur-md transition-all duration-700 ease-out ${
@@ -170,6 +170,6 @@ export default function TrustBar({ className = "" }: { className?: string }) {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

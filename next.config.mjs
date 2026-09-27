@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  generateEtags: false,
   compress: true,
   images: {
     formats: ["image/avif", "image/webp"],
@@ -12,7 +13,8 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: "/:all*(svg|jpg|jpeg|png|webp|avif|ico|woff|woff2)",
+        // Static assets: images, fonts, video — 1 year immutable
+        source: "/:all*(svg|jpg|jpeg|png|webp|avif|ico|woff|woff2|mp4|webm)",
         headers: [
           {
             key: "Cache-Control",
@@ -25,3 +27,4 @@ const nextConfig = {
 };
 
 export default nextConfig;
+

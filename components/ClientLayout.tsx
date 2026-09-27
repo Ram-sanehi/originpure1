@@ -2,6 +2,13 @@
 
 import Lenis from "@studio-freight/lenis";
 import { useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { MoodProvider } from "@/context/MoodContext";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function ClientLayout({
   children,
@@ -20,26 +27,29 @@ export default function ClientLayout({
     }
 
     const lenis = new Lenis({
-      duration: 1.1,
+      duration: 0.8,        // was 1.1 — faster settle
       smoothWheel: true,
-      wheelMultiplier: 0.92,
+      wheelMultiplier: 1.0, // was 0.92 — native scroll speed, no artificial throttle
       touchMultiplier: 1.1,
-      lerp: 0.1,
+      lerp: 0.14,           // was 0.1 — less per-frame lag
     });
 
-    let frameId = 0;
-    const raf = (time: number) => {
-      lenis.raf(time);
-      frameId = requestAnimationFrame(raf);
-    };
+    // Sync GSAP ScrollTrigger with Lenis so scroll-tied animations track correctly
+    lenis.on("scroll", ScrollTrigger.update);
 
-    frameId = requestAnimationFrame(raf);
+    // Feed Lenis into GSAP ticker so it runs on the same RAF loop
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+    gsap.ticker.lagSmoothing(0);
 
     return () => {
-      cancelAnimationFrame(frameId);
+      lenis.off("scroll", ScrollTrigger.update);
+      gsap.ticker.remove((time) => lenis.raf(time * 1000));
       lenis.destroy();
     };
   }, []);
 
-  return <>{children}</>;
+  return <MoodProvider>{children}</MoodProvider>;
 }
+

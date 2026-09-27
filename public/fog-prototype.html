@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hero Fog / Mist Overlay Effect – Interactive Prototype</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #0d1a12;
+      color: #FAF6EE;
+      overflow-x: hidden;
+    }
+
+    /* Floating Control Panel for Testing */
+    .controls-panel {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      background: rgba(14, 28, 20, 0.88);
+      border: 1px solid rgba(201, 166, 94, 0.4);
+      border-radius: 14px;
+      padding: 16px 20px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+      max-width: 320px;
+      font-size: 13px;
+    }
+
+    .controls-panel h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #C9A65E;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .control-row {
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .control-label {
+      display: flex;
+      justify-content: space-between;
+      color: #d0e0d4;
+    }
+
+    .control-label span:last-child {
+      font-weight: 600;
+      color: #C9A65E;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: #C9A65E;
+      cursor: pointer;
+    }
+
+    .btn-replay {
+      width: 100%;
+      padding: 8px 12px;
+      margin-top: 8px;
+      background: linear-gradient(135deg, #C9A65E 0%, #A88234 100%);
+      border: none;
+      border-radius: 8px;
+      color: #0E1C14;
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+
+    .btn-replay:hover {
+      opacity: 0.95;
+      transform: translateY(-1px);
+    }
+
+    .telemetry {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      font-family: monospace;
+      font-size: 11px;
+      color: #9cb5a3;
+    }
+
+    /* HERO SECTION CONTAINER */
+    .hero-section {
+      position: relative;
+      height: 100vh;
+      min-height: 650px;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      text-align: left;
+      padding: 40px 8%;
+      background: radial-gradient(ellipse at 50% 35%, #213C28 0%, #1A2E1F 62%, #112015 100%);
+    }
+
+    /* Background Layer: Right-Side Full-Bleed Video (z-index: 0) */
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 50%;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+      mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.2) 12%, rgba(0,0,0,0.65) 26%, black 42%, black 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.2) 12%, rgba(0,0,0,0.65) 26%, black 42%, black 100%);
+    }
+
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 76% center;
+      transform: translateX(20px);
+    }
+
+    .hero-seam-blur {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 280px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      mask-image: linear-gradient(to right, black 0%, rgba(0,0,0,0.5) 45%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, black 0%, rgba(0,0,0,0.5) 45%, transparent 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .hero-tint-multiply {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, #1A2E1F 0%, rgba(26, 46, 31, 0.5) 35%, transparent 100%);
+      z-index: 1;
+    }
+
+    .hero-vignette-sides {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(12, 25, 16, 0.9) 0%, rgba(20, 38, 26, 0.65) 50%, rgba(12, 25, 16, 0.45) 100%);
+    }
+
+    .hero-vignette-vertical {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, #112015 0%, transparent 50%, rgba(17, 32, 21, 0.75) 100%);
+    }
+
+    /* FOG / MIST OVERLAY LAYER (z-index: 10) */
+    .fog-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      pointer-events: none;
+      overflow: hidden;
+      backdrop-filter: blur(2.5px);
+      -webkit-backdrop-filter: blur(2.5px);
+      will-change: transform, opacity;
+      opacity: 0;
+      transform: translate3d(0, 22px, 0);
+    }
+
+    .fog-base {
+      position: absolute;
+      inset: 0;
+      opacity: 0.85;
+      background: radial-gradient(ellipse 95% 75% at 50% 65%, rgba(250, 246, 238, 0.75) 0%, rgba(245, 239, 227, 0.55) 45%, rgba(235, 225, 210, 0.28) 72%, transparent 100%);
+    }
+
+    .fog-plumes {
+      position: absolute;
+      inset: 0;
+      animation: steam-drift 14s ease-in-out infinite;
+    }
+
+    .plume-left {
+      position: absolute;
+      bottom: -80px;
+      left: -80px;
+      width: 650px;
+      height: 650px;
+      border-radius: 50%;
+      filter: blur(50px);
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.70) 0%, rgba(250, 246, 238, 0.45) 45%, transparent 75%);
+    }
+
+    .plume-center {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 850px;
+      height: 750px;
+      border-radius: 50%;
+      filter: blur(60px);
+      background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.78) 0%, rgba(246, 240, 228, 0.52) 42%, rgba(240, 230, 212, 0.22) 68%, transparent 82%);
+    }
+
+    .plume-right {
+      position: absolute;
+      bottom: -40px;
+      right: -80px;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      filter: blur(55px);
+      background: radial-gradient(circle, rgba(250, 246, 238, 0.68) 0%, rgba(242, 234, 218, 0.40) 50%, transparent 75%);
+    }
+
+    .plume-cup {
+      position: absolute;
+      bottom: -30px;
+      right: 40px;
+      width: 680px;
+      height: 680px;
+      border-radius: 50%;
+      filter: blur(45px);
+      background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.88) 0%, rgba(250, 246, 238, 0.65) 38%, rgba(242, 234, 218, 0.28) 65%, transparent 80%);
+    }
+
+    .fog-noise {
+      position: absolute;
+      inset: 0;
+      opacity: 0.22;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.015' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    @keyframes steam-drift {
+      0%, 100% {
+        transform: translate3d(0, 0, 0) scale(1);
+        opacity: 0.85;
+      }
+      50% {
+        transform: translate3d(-1.5%, -2%, 0) scale(1.04);
+        opacity: 0.98;
+      }
+    }
+
+    /* HERO CONTENT (z-index: 20) */
+    .hero-content {
+      position: relative;
+      z-index: 20;
+      max-width: 780px;
+      padding: 0 20px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: #C9A65E;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+      margin-bottom: 14px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #C9A65E;
+    }
+
+    h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(2.8rem, 6vw, 4.6rem);
+      font-weight: 400;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: #FAF6F0;
+      text-shadow: 0 2px 16px rgba(0, 0, 0, 0.75);
+      margin-bottom: 20px;
+    }
+
+    .subtext {
+      font-size: clamp(15px, 2vw, 18px);
+      line-height: 1.65;
+      color: #E2ECE4;
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+      margin: 0 auto 32px;
+      max-width: 580px;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #C9A65E;
+      color: #0E1C14;
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      padding: 14px 28px;
+      border-radius: 9999px;
+      text-decoration: none;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: #d4b470;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(250, 246, 240, 0.45);
+      background: rgba(255, 255, 255, 0.06);
+      color: #FAF6F0;
+      font-weight: 600;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      padding: 14px 28px;
+      border-radius: 9999px;
+      text-decoration: none;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.14);
+      border-color: #FAF6F0;
+    }
+
+    .badges {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: rgba(201, 166, 94, 0.95);
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+    }
+
+    /* SCROLL DOWN SECTION TO DEMO CLEARING */
+    .content-section {
+      min-height: 120vh;
+      background: #FDFDFD;
+      color: #1B4332;
+      padding: 100px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .content-card {
+      max-width: 800px;
+      background: #FFFFFF;
+      border: 1px solid #E8EDE9;
+      border-radius: 20px;
+      padding: 48px;
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.06);
+      margin-top: 40px;
+    }
+
+    .content-card h2 {
+      font-family: Georgia, serif;
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+
+    .content-card p {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #4A5D52;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Interactive Controls for Testing & Client Review -->
+  <aside class="controls-panel" aria-label="Prototype Controls">
+    <h3>
+      <span>Fog Controls</span>
+      <span style="font-size: 10px; color: #7a9c84;">Phase 1 & 2</span>
+    </h3>
+
+    <div class="control-row" style="margin-bottom: 14px;">
+      <div class="control-label" style="margin-bottom: 6px;">
+        <span>Fog Mood Tone</span>
+      </div>
+      <div style="display: flex; gap: 4px; background: rgba(0,0,0,0.3); padding: 4px; border-radius: 8px;">
+        <button type="button" class="btn-mood active" data-mood="cream" style="flex: 1; padding: 6px 4px; border: none; border-radius: 6px; font-size: 11px; font-weight: 700; cursor: pointer; background: #C9A65E; color: #0E1C14;">Cream</button>
+        <button type="button" class="btn-mood" data-mood="white" style="flex: 1; padding: 6px 4px; border: none; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; background: transparent; color: #d0e0d4;">White</button>
+        <button type="button" class="btn-mood" data-mood="gold" style="flex: 1; padding: 6px 4px; border: none; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; background: transparent; color: #d0e0d4;">Gold</button>
+      </div>
+    </div>
+
+    <div class="control-row">
+      <div class="control-label">
+        <span>Peak Fog Opacity</span>
+        <span id="val-peak">85%</span>
+      </div>
+      <input type="range" id="input-peak" min="30" max="95" value="85" />
+    </div>
+
+    <div class="control-row">
+      <div class="control-label">
+        <span>Build Duration</span>
+        <span id="val-duration">1.7s</span>
+      </div>
+      <input type="range" id="input-duration" min="8" max="30" value="17" />
+    </div>
+
+    <div class="control-row">
+      <div class="control-label">
+        <span>Clearing Threshold</span>
+        <span id="val-threshold">60%</span>
+      </div>
+      <input type="range" id="input-threshold" min="40" max="80" value="60" />
+    </div>
+
+    <button class="btn-replay" id="btn-replay">↻ Replay Load Animation</button>
+
+    <div class="telemetry">
+      <div>Scroll: <span id="tel-scroll" style="color: #FFF;">0px</span></div>
+      <div>Progress: <span id="tel-prog" style="color: #FFF;">0%</span></div>
+      <div>Fog Opacity: <span id="tel-opacity" style="color: #C9A65E;">0.00</span></div>
+      <div>Drift Y: <span id="tel-drift" style="color: #FFF;">0px</span></div>
+    </div>
+  </aside>
+
+  <!-- HERO SECTION -->
+  <section class="hero-section" id="hero">
+    <!-- Video Background & Vignettes (z-0) -->
+    <div class="hero-bg">
+      <video
+        class="hero-video"
+        src="/videos/heroremoved.mp4"
+        poster="/webimg/1.png"
+        autoplay
+        muted
+        loop
+        playsinline
+      ></video>
+      <div class="hero-tint-multiply"></div>
+      <div class="hero-seam-blur"></div>
+      <div class="hero-vignette-vertical"></div>
+    </div>
+
+    <!-- Fog Overlay Layer (z-10) -->
+    <div class="fog-overlay" id="fogLayer">
+      <div class="fog-base"></div>
+      <div class="fog-plumes">
+        <div class="plume-left"></div>
+        <div class="plume-center"></div>
+        <div class="plume-right"></div>
+        <div class="plume-cup"></div>
+      </div>
+      <div class="fog-noise"></div>
+    </div>
+
+    <!-- Hero Content (z-20) -->
+    <div class="hero-content">
+      <div class="eyebrow">Wellness & Natural</div>
+      <h1>A Collection<br />In Bloom</h1>
+      <p class="subtext">
+        Whole-leaf botanical infusions sourced from high-altitude regenerative gardens, harvested at peak vitality for daily calm and sustained nourishment.
+      </p>
+      <div class="cta-row">
+        <a href="#shop" class="btn-primary">Shop On Amazon</a>
+        <a href="#story" class="btn-secondary">Our Story</a>
+      </div>
+      <div class="badges">
+        <span>100% Natural</span>
+        <span>·</span>
+        <span>Small Batch</span>
+        <span>·</span>
+        <span>Whole Botanicals</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEMO SCROLL BODY -->
+  <main class="content-section">
+    <div class="content-card">
+      <h2>Scroll-Tied Fog Clearing Demonstration</h2>
+      <p>
+        Notice how as you scroll down through the hero section above, the warm morning fog/steam layer gradually clears in direct proportion to your scroll speed and depth.
+      </p>
+      <p>
+        By the time the hero is ~62% scrolled out of view, the fog is 100% transparent, presenting the crisp, vibrant background tea video with complete clarity.
+      </p>
+      <p>
+        When you scroll back up to the top, the morning mist smoothly restores to its peak density without replaying the initial load animation!
+      </p>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      const fogEl = document.getElementById("fogLayer");
+      const heroEl = document.getElementById("hero");
+
+      // Controls & Telemetry Elements
+      const inputPeak = document.getElementById("input-peak");
+      const inputDuration = document.getElementById("input-duration");
+      const inputThreshold = document.getElementById("input-threshold");
+      const valPeak = document.getElementById("val-peak");
+      const valDuration = document.getElementById("val-duration");
+      const valThreshold = document.getElementById("val-threshold");
+      const btnReplay = document.getElementById("btn-replay");
+
+      const telScroll = document.getElementById("tel-scroll");
+      const telProg = document.getElementById("tel-prog");
+      const telOpacity = document.getElementById("tel-opacity");
+      const telDrift = document.getElementById("tel-drift");
+
+      let peakOpacity = 0.85;
+      let buildDuration = 1700; // ms
+      let clearThresholdRatio = 0.60;
+
+      let startTime = performance.now();
+      let buildUpProgress = 0;
+      let rafId = null;
+      let isTicking = false;
+
+      const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+      function updateFog() {
+        isTicking = false;
+        const now = performance.now();
+
+        if (buildUpProgress < 1) {
+          const elapsed = now - startTime;
+          buildUpProgress = Math.min(1, elapsed / buildDuration);
+        }
+
+        const buildUpFactor = easeOutCubic(buildUpProgress);
+
+        const scrollY = window.scrollY || window.pageYOffset || 0;
+        const heroHeight = heroEl.offsetHeight || window.innerHeight;
+        const clearThreshold = heroHeight * clearThresholdRatio;
+        const scrollProgress = Math.min(1, Math.max(0, scrollY / clearThreshold));
+        const scrollFactor = 1 - scrollProgress;
+
+        // Combined Net Opacity: (0 -> peakOpacity on load) * (1 -> 0 on scroll)
+        const netOpacity = scrollProgress >= 0.98 ? 0 : Math.max(0, Math.min(1, buildUpFactor * scrollFactor)) * peakOpacity;
+
+        // Upward Steam Drift
+        const buildUpY = (1 - buildUpFactor) * 22;
+        const scrollYDrift = -scrollProgress * 28;
+        const netY = buildUpY + scrollYDrift;
+
+        fogEl.style.opacity = netOpacity.toFixed(4);
+        fogEl.style.transform = `translate3d(0, ${netY.toFixed(2)}px, 0)`;
+
+        // Telemetry Readouts
+        telScroll.textContent = `${Math.round(scrollY)}px`;
+        telProg.textContent = `${Math.round(scrollProgress * 100)}%`;
+        telOpacity.textContent = netOpacity.toFixed(2);
+        telDrift.textContent = `${Math.round(netY)}px`;
+
+        if (buildUpProgress < 1) {
+          rafId = requestAnimationFrame(updateFog);
+        }
+      }
+
+      function requestUpdate() {
+        if (!isTicking) {
+          isTicking = true;
+          rafId = requestAnimationFrame(updateFog);
+        }
+      }
+
+      function replay() {
+        startTime = performance.now();
+        buildUpProgress = 0;
+        if (rafId) cancelAnimationFrame(rafId);
+        updateFog();
+      }
+
+      // Event Listeners
+      window.addEventListener("scroll", requestUpdate, { passive: true });
+      window.addEventListener("resize", requestUpdate, { passive: true });
+
+      inputPeak.addEventListener("input", (e) => {
+        peakOpacity = e.target.value / 100;
+        valPeak.textContent = `${e.target.value}%`;
+        requestUpdate();
+      });
+
+      inputDuration.addEventListener("input", (e) => {
+        buildDuration = e.target.value * 100;
+        valDuration.textContent = `${(buildDuration / 1000).toFixed(1)}s`;
+      });
+
+      inputThreshold.addEventListener("input", (e) => {
+        clearThresholdRatio = e.target.value / 100;
+        valThreshold.textContent = `${e.target.value}%`;
+        requestUpdate();
+      });
+
+      const moodThemes = {
+        cream: {
+          base: "radial-gradient(ellipse 95% 75% at 50% 65%, rgba(250, 246, 238, 0.75) 0%, rgba(245, 239, 227, 0.55) 45%, rgba(235, 225, 210, 0.28) 72%, transparent 100%)",
+          left: "radial-gradient(circle, rgba(255, 255, 255, 0.70) 0%, rgba(250, 246, 238, 0.45) 45%, transparent 75%)",
+          center: "radial-gradient(ellipse at center, rgba(255, 255, 255, 0.78) 0%, rgba(246, 240, 228, 0.52) 42%, rgba(240, 230, 212, 0.22) 68%, transparent 82%)",
+          right: "radial-gradient(circle, rgba(250, 246, 238, 0.68) 0%, rgba(242, 234, 218, 0.40) 50%, transparent 75%)",
+          cup: "radial-gradient(ellipse at center, rgba(255, 255, 255, 0.88) 0%, rgba(250, 246, 238, 0.65) 38%, rgba(242, 234, 218, 0.28) 65%, transparent 80%)"
+        },
+        white: {
+          base: "radial-gradient(ellipse 95% 75% at 50% 65%, rgba(255, 255, 255, 0.78) 0%, rgba(250, 252, 255, 0.58) 45%, rgba(240, 244, 250, 0.28) 72%, transparent 100%)",
+          left: "radial-gradient(circle, rgba(255, 255, 255, 0.75) 0%, rgba(245, 248, 252, 0.48) 45%, transparent 75%)",
+          center: "radial-gradient(ellipse at center, rgba(255, 255, 255, 0.82) 0%, rgba(248, 250, 254, 0.55) 42%, rgba(240, 244, 250, 0.22) 68%, transparent 82%)",
+          right: "radial-gradient(circle, rgba(255, 255, 255, 0.72) 0%, rgba(245, 248, 252, 0.42) 50%, transparent 75%)",
+          cup: "radial-gradient(ellipse at center, rgba(255, 255, 255, 0.92) 0%, rgba(250, 252, 255, 0.70) 38%, rgba(242, 246, 252, 0.30) 65%, transparent 80%)"
+        },
+        gold: {
+          base: "radial-gradient(ellipse 95% 75% at 50% 65%, rgba(248, 232, 192, 0.72) 0%, rgba(235, 212, 160, 0.52) 45%, rgba(201, 166, 94, 0.26) 72%, transparent 100%)",
+          left: "radial-gradient(circle, rgba(255, 245, 220, 0.70) 0%, rgba(240, 220, 175, 0.44) 45%, transparent 75%)",
+          center: "radial-gradient(ellipse at center, rgba(255, 242, 210, 0.76) 0%, rgba(235, 210, 155, 0.50) 42%, rgba(201, 166, 94, 0.24) 68%, transparent 82%)",
+          right: "radial-gradient(circle, rgba(245, 225, 180, 0.66) 0%, rgba(230, 205, 150, 0.38) 50%, transparent 75%)",
+          cup: "radial-gradient(ellipse at center, rgba(255, 245, 220, 0.86) 0%, rgba(240, 220, 175, 0.62) 38%, rgba(201, 166, 94, 0.28) 65%, transparent 80%)"
+        }
+      };
+
+      const fogBase = document.querySelector(".fog-base");
+      const plumeLeft = document.querySelector(".plume-left");
+      const plumeCenter = document.querySelector(".plume-center");
+      const plumeRight = document.querySelector(".plume-right");
+      const plumeCup = document.querySelector(".plume-cup");
+      const moodBtns = document.querySelectorAll(".btn-mood");
+
+      moodBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          moodBtns.forEach((b) => {
+            b.classList.remove("active");
+            b.style.background = "transparent";
+            b.style.color = "#d0e0d4";
+            b.style.fontWeight = "600";
+          });
+          btn.classList.add("active");
+          btn.style.background = "#C9A65E";
+          btn.style.color = "#0E1C14";
+          btn.style.fontWeight = "700";
+
+          const theme = moodThemes[btn.dataset.mood];
+          if (theme) {
+            fogBase.style.background = theme.base;
+            plumeLeft.style.background = theme.left;
+            plumeCenter.style.background = theme.center;
+            plumeRight.style.background = theme.right;
+            if (plumeCup && theme.cup) plumeCup.style.background = theme.cup;
+          }
+        });
+      });
+
+      // Start initial run
+      updateFog();
+    })();
+  </script>
+</body>
+</html>

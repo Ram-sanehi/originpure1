@@ -21,8 +21,6 @@
 }
 
 html {
-  scroll-behavior: smooth;
-  scroll-snap-type: y proximity;
   font-variant-numeric: lining-nums;
   overflow-x: hidden;
 }
@@ -236,4 +234,65 @@ h4, h5, h6 {
     animation-play-state: paused;
   }
 }
+
+/* Ambient Steam/Mist Drift Animations for Hero Fog */
+@keyframes fog-drift-slow {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-18px, -12px, 0) scale(1.03);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes fog-drift-rising {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(14px, -20px, 0) scale(1.04);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes fog-drift-horizontal {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-24px, 8px, 0) scale(1.02);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+.animate-fog-slow {
+  animation: fog-drift-slow 24s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-fog-rising {
+  animation: fog-drift-rising 19s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-fog-horizontal {
+  animation: fog-drift-horizontal 22s ease-in-out infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fog-slow,
+  .animate-fog-rising,
+  .animate-fog-horizontal {
+    animation: none !important;
+  }
+}
+
 
