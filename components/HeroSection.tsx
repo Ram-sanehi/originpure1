@@ -96,6 +96,44 @@ export default function HeroSection() {
           className={`absolute inset-0 h-full w-full object-cover object-[72%_center] md:object-[68%_center] lg:object-[65%_center] xl:object-[63%_center] transition-opacity duration-1000 ${
             isVideoLoaded ? "opacity-100" : "opacity-0"
           }`}
+          style={{
+            // CSS variable --hero-brightness controls overall video brightness (default 0.7)
+            filter: "brightness(var(--hero-brightness, 0.7)) contrast(1.1) saturate(1.05)",
+          }}
+        />
+
+        {/* Cinematic dark overlay — top-to-bottom gradient, z above video, below hero content */}
+        {/* Opacity controlled via --hero-overlay CSS variable (default 1 = full overlay at declared stops) */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 1,
+            pointerEvents: "none",
+            background: `linear-gradient(
+              to bottom,
+              rgba(0,0,0,calc(0.45 * var(--hero-overlay, 1))) 0%,
+              rgba(0,0,0,calc(0.25 * var(--hero-overlay, 1))) 50%,
+              rgba(0,0,0,calc(0.60 * var(--hero-overlay, 1))) 100%
+            )`,
+          }}
+        />
+
+        {/* Soft vignette layer — radial, darkens edges, center stays clear */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 2,
+            pointerEvents: "none",
+            background: `radial-gradient(
+              ellipse at center,
+              transparent 40%,
+              rgba(0,0,0,calc(0.50 * var(--hero-overlay, 1))) 100%
+            )`,
+          }}
         />
       </div>
 

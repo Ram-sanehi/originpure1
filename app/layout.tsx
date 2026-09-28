@@ -69,8 +69,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* next/font/google automatically handles Google Fonts preconnect — no manual tags needed.
+            Keeping only the Amazon preconnect which next/font does not manage. */}
         <link rel="preconnect" href="https://www.amazon.in" />
         <link rel="dns-prefetch" href="https://www.amazon.in" />
       </head>

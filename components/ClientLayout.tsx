@@ -36,15 +36,22 @@ export default function ClientLayout({
     // Sync GSAP ScrollTrigger with Lenis so scroll-tied animations track correctly
     lenis.on("scroll", ScrollTrigger.update);
 
-    // Feed Lenis into GSAP ticker so it runs on the same RAF loop
-    gsap.ticker.add((time) => {
+    // Store the callback in a stable variable so the exact same reference is
+    // used for both gsap.ticker.add() and gsap.ticker.remove().
+    // Passing a fresh inline arrow to .remove() would never match the added fn
+    // and the RAF loop would leak forever on component unmount.
+    const rafCallback = (time: number) => {
       lenis.raf(time * 1000);
-    });
-    gsap.ticker.lagSmoothing(0);
+    };
+
+    gsap.ticker.add(rafCallback);
+    // lagSmoothing(500, 33): allow up to 500ms catch-up over 33ms — prevents
+    // animation snapping during CPU spikes without fully disabling smoothing.
+    gsap.ticker.lagSmoothing(500, 33);
 
     return () => {
       lenis.off("scroll", ScrollTrigger.update);
-      gsap.ticker.remove((time) => lenis.raf(time * 1000));
+      gsap.ticker.remove(rafCallback); // same reference — correctly removed
       lenis.destroy();
     };
   }, []);

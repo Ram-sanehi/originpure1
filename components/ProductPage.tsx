@@ -82,10 +82,12 @@ export default function ProductPage({ product }: { product: Product }) {
   useEffect(() => {
     if (isPaused || galleryImages.length <= 1) return;
     const timer = setInterval(() => {
+      // Use the functional updater — reads latest state without needing activeIdx
+      // in the dependency array (which would reset the timer on every slide change).
       setActiveIdx((prev) => (prev + 1) % galleryImages.length);
     }, 4500);
     return () => clearInterval(timer);
-  }, [isPaused, activeIdx, galleryImages.length]);
+  }, [isPaused, galleryImages.length]); // activeIdx intentionally omitted — functional updater handles it
 
   const reviews = getReviewsForProduct(product.name);
   const benefits = ["No Additives", "Plant-Based Bags", details.badges?.[0] ?? "Botanical Blend", "Daily Ritual"];

@@ -186,7 +186,9 @@ export default function HeroMarquee({ mounted = true }: HeroMarqueeProps) {
                     fill
                     sizes="(max-width: 1024px) 195px, 220px"
                     className="object-cover"
-                    priority={idx < 2}
+                    // priority omitted: column 2 is hidden on mobile (hidden sm:block),
+                    // so eager-loading these on small screens wastes bandwidth.
+                    // On desktop they load fast via the browser's preloader anyway.
                   />
 
                   {/* Subtle inner dark vignette for rich photographic depth */}
@@ -211,3 +213,4 @@ export default function HeroMarquee({ mounted = true }: HeroMarqueeProps) {
     </div>
   );
 }
+

@@ -248,23 +248,24 @@ export default function ReviewsCarousel() {
     // Respect reduced motion settings
     if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setIsBannerVisible(true);
-    } else {
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setIsBannerVisible(true);
-            observer.disconnect();
-          }
-        },
-        { threshold: 0.2 }
-      );
-
-      if (bannerRef.current) {
-        observer.observe(bannerRef.current);
-      }
-
-      return () => observer.disconnect();
+      return; // consistent early return — no observer created, nothing to clean up
     }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsBannerVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (bannerRef.current) {
+      observer.observe(bannerRef.current);
+    }
+
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {

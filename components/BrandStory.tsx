@@ -8,7 +8,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { waitForImagesReady } from "@/components/RevealImage";
 import IngredientsMarquee from "@/components/IngredientsMarquee";
 
-gsap.registerPlugin(ScrollTrigger);
+// Guard against SSR: ScrollTrigger accesses window/document at registration time.
+// ClientLayout also registers it, but this guard prevents any SSR crash/warning
+// if this module is evaluated on the server before hydration.
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const folds = [
   "Pure by Origin.",
@@ -137,15 +142,14 @@ export default function BrandStory() {
 
           <div className="mt-6 space-y-4">
             {folds.map((phrase, index) => (
+              // motion.p kept as the ref target for GSAP — FM animation props removed
+              // to avoid two systems (GSAP + Framer Motion) fighting over opacity/transform.
+              // GSAP scrollTrigger (set up in useEffect via phraseRefs) owns this animation.
               <motion.p
                 key={phrase}
                 ref={(node) => {
                   phraseRefs.current[index] = node;
                 }}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.4 }}
-                transition={{ duration: 0.22, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal leading-[1.12] tracking-[-0.02em] text-[#1B4332]"
               >
                 {phrase}

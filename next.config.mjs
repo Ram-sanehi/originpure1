@@ -2,8 +2,13 @@
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
-  generateEtags: false,
+  // generateEtags removed: false was preventing browsers from sending
+  // If-None-Match conditional requests, forcing full re-downloads on repeat visits.
   compress: true,
+  experimental: {
+    // Enables CSS minification and dead-code elimination at build time
+    optimizeCss: true,
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     deviceSizes: [320, 420, 640, 750, 828, 1080, 1200, 1920],
@@ -27,4 +32,5 @@ const nextConfig = {
 };
 
 export default nextConfig;
+
 
