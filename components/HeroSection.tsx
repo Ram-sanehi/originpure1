@@ -85,7 +85,7 @@ export default function HeroSection() {
         {/* Hot tea cup background video — full natural brightness and contrast, zero fog, zero blur, no haze */}
         <video
           ref={videoRef}
-          src="/videos/heroremoved.mp4"
+          src="/videos/video.mp4"
           poster="/webimg/hero-cup.png"
           autoPlay
           muted
@@ -123,33 +123,23 @@ export default function HeroSection() {
       {/* ================= TOP BAR ================= */}
       <header ref={headerRef} className="relative z-30 w-full px-4 py-4 xs:px-6 xs:py-5 sm:px-8 sm:py-6 lg:px-12">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
-          {/* Top-left: Origin Pure circular brand logo + attractive typography lockup */}
+          {/* Top-left: Origin Pure square brand logo */}
           <div className="flex flex-1 justify-start">
             <Link
               href="/"
-              className="group inline-flex items-center gap-2.5 xs:gap-3 sm:gap-3.5 shrink-0 text-[#FAF6F0] focus:outline-none focus:ring-2 focus:ring-[#C9A65E]/60 rounded-full"
+              className="group inline-flex items-center shrink-0 focus:outline-none focus:ring-2 focus:ring-[#C9A65E]/60 rounded-xl"
               aria-label="Origin Pure - Wellness & Natural"
             >
-              {/* Circular Emblem housing the exact uploaded artwork */}
-              <div className="relative h-11 w-11 xs:h-12 xs:w-12 sm:h-14 sm:w-14 shrink-0 overflow-hidden rounded-full border-[1.5px] border-[#C9A65E]/75 shadow-[0_2px_14px_rgba(0,0,0,0.35),0_0_12px_rgba(201,166,94,0.22)] bg-[#FAF7F2] p-1 transition-all duration-300 group-hover:scale-105 group-hover:border-[#F9E7B2] group-hover:shadow-[0_2px_18px_rgba(0,0,0,0.4),0_0_18px_rgba(201,166,94,0.35)]">
+              {/* Square Emblem housing the original logo */}
+              <div className="relative h-14 w-14 xs:h-16 xs:w-16 sm:h-[72px] sm:w-[72px] shrink-0 overflow-hidden rounded-xl border-[1.5px] border-[#C9A65E]/75 shadow-[0_2px_14px_rgba(0,0,0,0.35),0_0_12px_rgba(201,166,94,0.22)] bg-[#FAF7F2] p-1.5 transition-all duration-300 group-hover:scale-105 group-hover:border-[#F9E7B2] group-hover:shadow-[0_2px_18px_rgba(0,0,0,0.4),0_0_18px_rgba(201,166,94,0.35)]">
                 <Image
                   src="/prdimg/origin-pure-logo.png"
-                  alt="Origin Pure"
+                  alt="Origin Pure - Wellness & Natural"
                   fill
-                  sizes="(max-width: 640px) 48px, 56px"
-                  className="object-contain p-0.5"
+                  sizes="(max-width: 640px) 64px, 80px"
+                  className="object-contain"
                   priority
                 />
-              </div>
-
-              {/* Brand Typography Lockup */}
-              <div className="flex flex-col justify-center text-left leading-tight">
-                <span className="font-serif text-[17px] xs:text-[19px] sm:text-[21px] md:text-[22px] font-bold text-[#FAF6F0] tracking-[0.14em] drop-shadow-[0_1px_3px_rgba(0,0,0,0.65)] transition-colors duration-300 group-hover:text-[#F9E7B2]">
-                  Origin Pure
-                </span>
-                <span className="font-sans text-[8.5px] xs:text-[9.5px] sm:text-[10.5px] font-semibold uppercase tracking-[0.24em] text-[#C9A65E] drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] mt-0.5 transition-colors duration-300 group-hover:text-[#F9E7B2]">
-                  Wellness &amp; Natural
-                </span>
               </div>
             </Link>
           </div>

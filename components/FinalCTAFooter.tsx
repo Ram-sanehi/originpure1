@@ -219,25 +219,17 @@ export default function FinalCTAFooter() {
             {/* Left: Brand Identity */}
             <Link
               href="/"
-              className="group inline-flex items-center gap-3 xs:gap-3.5 sm:gap-4 focus:outline-none focus:ring-2 focus:ring-[#C9A65E]/60 rounded-full"
+              className="group inline-flex items-center shrink-0 focus:outline-none focus:ring-2 focus:ring-[#C9A65E]/60 rounded-xl"
               aria-label="Origin Pure - Wellness & Natural"
             >
-              <div className="relative h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 shrink-0 overflow-hidden rounded-full border-[1.5px] border-[#C9A65E]/70 shadow-[0_2px_12px_rgba(27,67,50,0.10)] bg-[#FAF7F2] p-1 transition-all duration-300 group-hover:scale-105 group-hover:border-[#C9A65E]">
+              <div className="relative h-16 w-16 sm:h-[72px] sm:w-[72px] md:h-20 md:w-20 shrink-0 overflow-hidden rounded-xl border-[1.5px] border-[#C9A65E]/70 shadow-[0_2px_12px_rgba(27,67,50,0.10)] bg-[#FAF7F2] p-1.5 transition-all duration-300 group-hover:scale-105 group-hover:border-[#C9A65E]">
                 <Image
                   src="/prdimg/origin-pure-logo.png"
-                  alt="Origin Pure Logo"
+                  alt="Origin Pure - Wellness & Natural"
                   fill
-                  sizes="64px"
-                  className="object-contain p-0.5"
+                  sizes="80px"
+                  className="object-contain"
                 />
-              </div>
-              <div className="text-left leading-tight">
-                <p className="font-serif text-[18px] sm:text-[21px] md:text-[22px] font-bold tracking-[0.14em] text-[#1B4332] leading-tight transition-colors duration-300 group-hover:text-[#0B241B]">
-                  Origin Pure
-                </p>
-                <p className="font-sans text-[9.5px] sm:text-[11px] font-semibold uppercase tracking-[0.24em] text-[#8F6A28] mt-0.5 transition-colors duration-300 group-hover:text-[#B88D27]">
-                  Wellness &amp; Natural
-                </p>
               </div>
             </Link>
 
