@@ -4,13 +4,13 @@ import Image from "next/image";
 export default function NotFound() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-[#FDFDFD] px-6 py-20 text-center text-[#1B4332]">
-      <div className="relative mb-6 h-16 w-16 overflow-hidden rounded-full border-2 border-[#C9A65E]/60 shadow-md">
+      <div className="relative mb-6 h-16 w-16 overflow-hidden rounded-full border-[1.5px] border-[#C9A65E]/70 shadow-md bg-[#FAF7F2] p-1">
         <Image
-          src="/prdimg/logo.jpeg"
+          src="/prdimg/origin-pure-logo.png"
           alt="Origin Pure"
           fill
           sizes="64px"
-          className="object-cover"
+          className="object-contain p-0.5"
         />
       </div>
 

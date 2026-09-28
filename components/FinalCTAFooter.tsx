@@ -217,25 +217,29 @@ export default function FinalCTAFooter() {
           {/* Main Footer Row */}
           <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             {/* Left: Brand Identity */}
-            <div className="flex items-center gap-3.5 sm:gap-4">
-              <div className="relative h-[52px] w-[52px] sm:h-16 sm:w-16 overflow-hidden rounded-full border-2 border-[#C9A65E]/50 shadow-sm shrink-0 bg-[#F7F7F7]">
+            <Link
+              href="/"
+              className="group inline-flex items-center gap-3 xs:gap-3.5 sm:gap-4 focus:outline-none focus:ring-2 focus:ring-[#C9A65E]/60 rounded-full"
+              aria-label="Origin Pure - Wellness & Natural"
+            >
+              <div className="relative h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 shrink-0 overflow-hidden rounded-full border-[1.5px] border-[#C9A65E]/70 shadow-[0_2px_12px_rgba(27,67,50,0.10)] bg-[#FAF7F2] p-1 transition-all duration-300 group-hover:scale-105 group-hover:border-[#C9A65E]">
                 <Image
-                  src="/prdimg/logo.jpeg"
+                  src="/prdimg/origin-pure-logo.png"
                   alt="Origin Pure Logo"
                   fill
                   sizes="64px"
-                  className="object-cover"
+                  className="object-contain p-0.5"
                 />
               </div>
-              <div className="text-left">
-                <p className="font-serif text-lg sm:text-[21px] font-bold tracking-[0.22em] text-[#1B4332] uppercase">
-                  ORIGIN PURE
+              <div className="text-left leading-tight">
+                <p className="font-serif text-[18px] sm:text-[21px] md:text-[22px] font-bold tracking-[0.14em] text-[#1B4332] leading-tight transition-colors duration-300 group-hover:text-[#0B241B]">
+                  Origin Pure
                 </p>
-                <p className="font-sans text-[11px] sm:text-xs font-semibold uppercase tracking-[0.18em] text-[#1B4332]/65">
+                <p className="font-sans text-[9.5px] sm:text-[11px] font-semibold uppercase tracking-[0.24em] text-[#8F6A28] mt-0.5 transition-colors duration-300 group-hover:text-[#B88D27]">
                   Wellness &amp; Natural
                 </p>
               </div>
-            </div>
+            </Link>
 
             {/* Center: Minimal Navigation Links */}
             <nav

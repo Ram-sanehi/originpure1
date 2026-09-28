@@ -133,36 +133,28 @@ export default function TrustBar({ className = "" }: { className?: string }) {
       aria-label="Origin Pure standards"
       className={`trust-badge-row relative z-30 w-full bg-transparent text-[#FAF6F0] p-0 py-0 ${className}`}
     >
-      {/* ================= SUBTLE RADIAL GLOW FOR DEPTH (NO BACKGROUND IMAGE) ================= */}
-      <div
-        className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden"
-        aria-hidden="true"
-      >
-        <div className="h-[200px] w-full max-w-4xl rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(38,88,58,0.26)_0%,_rgba(18,48,32,0.12)_45%,_transparent_72%)] blur-2xl" />
-      </div>
-
       {/* ================= CONTENT CONTAINER ================= */}
       <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-center px-4 sm:px-6 lg:px-10 py-0 pb-2 sm:pb-3">
-        {/* SINGLE PILL-SHAPED UNIFYING OUTER CONTAINER WRAPPING ALL 4 BADGES */}
+        {/* SINGLE PILL-SHAPED UNIFYING OUTER CONTAINER WRAPPING ALL 4 BADGES — TRANSPARENT BACKGROUND */}
         <div
-          className={`inline-flex max-w-full items-center justify-center rounded-[2rem] sm:rounded-full border-[0.5px] border-white/12 bg-[linear-gradient(135deg,rgba(18,40,30,0.75)_0%,rgba(10,24,18,0.65)_100%)] p-2 xs:p-2.5 sm:p-2.5 md:p-3 shadow-[0_12px_36px_rgba(0,0,0,0.30)] backdrop-blur-md transition-all duration-700 ease-out ${
+          className={`inline-flex max-w-full items-center justify-center rounded-[2rem] sm:rounded-full border-[0.5px] border-white/20 bg-transparent p-2 xs:p-2.5 sm:p-2.5 md:p-3 transition-all duration-700 ease-out ${
             isVisible || reducedMotion
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-3.5 pointer-events-none"
           }`}
         >
-          {/* 4 TRUST BADGES: RESPONSIVE 2x2 ON MOBILE, INLINE ROW ON LARGER SCREENS */}
-          <div className="grid w-full max-w-[390px] grid-cols-2 gap-2 xs:gap-2.5 sm:max-w-none sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-2.5 md:gap-3 lg:gap-3.5">
+          {/* 4 TRUST BADGES: RESPONSIVE 2x2 ON MOBILE, INLINE ROW ON LARGER SCREENS — TRANSPARENT BACKGROUND */}
+          <div className="grid w-full max-w-[440px] grid-cols-2 gap-2 xs:gap-2.5 sm:max-w-none sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-2.5 md:gap-3 lg:gap-3.5">
             {trustItems.map(({ label, icon: Icon }, index) => (
               <div
                 key={label}
                 style={{
                   transitionDelay: reducedMotion ? "0ms" : `${index * 80 + 100}ms`,
                 }}
-                className="group flex h-9 sm:h-10 items-center justify-center sm:justify-start gap-1.5 xs:gap-2 sm:gap-2.5 rounded-full border-[0.5px] border-white/10 bg-white/[0.04] px-2.5 xs:px-3.5 sm:px-5 text-[9.5px] xs:text-[10px] sm:text-[11px] font-medium uppercase tracking-[0.12em] sm:tracking-[0.16em] text-[#FAF6F0] shadow-[0_2px_10px_rgba(0,0,0,0.25)] backdrop-blur-sm transition-all duration-300 ease-out cursor-default hover:-translate-y-0.5 hover:border-[#E4C56F]/80 hover:bg-[#E4C56F]/[0.07] hover:shadow-[0_4px_16px_rgba(0,0,0,0.35),0_0_12px_rgba(228,197,111,0.18)]"
+                className="group flex h-10 sm:h-11 items-center justify-center sm:justify-start gap-2 sm:gap-2.5 rounded-full border-[0.5px] border-white/20 bg-transparent px-3.5 xs:px-4 sm:px-5 text-[13px] sm:text-[14px] font-medium uppercase tracking-[0.11em] text-[#FAF6F0] transition-all duration-300 ease-out cursor-default hover:-translate-y-0.5 hover:border-[#E4C56F]/80"
               >
-                <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 text-[#E4C56F] transition-all duration-300 ease-out group-hover:scale-105 group-hover:text-[#F6D884] group-hover:drop-shadow-[0_0_6px_rgba(228,197,111,0.45)]" />
-                <span className="truncate whitespace-nowrap transition-colors duration-300 ease-out group-hover:text-[#F5E2B5]">
+                <Icon className="h-4 w-4 sm:h-[18px] sm:w-[18px] shrink-0 text-[#E4C56F] drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)] transition-all duration-300 ease-out group-hover:scale-105 group-hover:text-[#F6D884] group-hover:drop-shadow-[0_0_8px_rgba(228,197,111,0.6)]" />
+                <span className="truncate whitespace-nowrap [text-shadow:0_1px_6px_rgba(0,0,0,0.45)] transition-colors duration-300 ease-out group-hover:text-[#F5E2B5]">
                   {label}
                 </span>
               </div>

@@ -4,7 +4,6 @@ import Lenis from "@studio-freight/lenis";
 import { useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { MoodProvider } from "@/context/MoodContext";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -50,6 +49,6 @@ export default function ClientLayout({
     };
   }, []);
 
-  return <MoodProvider>{children}</MoodProvider>;
+  return <>{children}</>;
 }
 

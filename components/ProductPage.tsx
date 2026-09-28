@@ -94,11 +94,18 @@ export default function ProductPage({ product }: { product: Product }) {
     <main className="min-h-screen bg-[#F7F7F2] text-[#1B4332]">
       <header className="border-b border-[#1B4332]/10 bg-[#0B241B] px-4 py-4 sm:px-8 sm:py-6 md:px-12 text-[#FFF8E7]">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 sm:gap-5">
-          <Link href="/" className="inline-flex items-center gap-2.5 sm:gap-3.5 font-serif text-base sm:text-[21px] font-bold tracking-[0.16em] sm:tracking-[0.22em] text-[#FFF8E7] transition-opacity hover:opacity-85 shrink-0">
-            <div className="relative h-11 w-11 xs:h-[52px] xs:w-[52px] sm:h-16 sm:w-16 overflow-hidden rounded-full border-2 border-[#C9A65E]/50 shadow-sm shrink-0 bg-[#F7F7F7]">
-              <Image src="/prdimg/logo.jpeg" alt="Origin Pure Logo" fill sizes="(max-width: 640px) 52px, 64px" className="object-cover" />
+          <Link href="/" className="group inline-flex items-center gap-2.5 sm:gap-3.5 transition-opacity hover:opacity-90 shrink-0">
+            <div className="relative h-11 w-11 xs:h-12 xs:w-12 sm:h-14 sm:w-14 shrink-0 overflow-hidden rounded-full border-[1.5px] border-[#C9A65E]/75 shadow-sm bg-[#FAF7F2] p-1">
+              <Image src="/prdimg/origin-pure-logo.png" alt="Origin Pure Logo" fill sizes="(max-width: 640px) 48px, 56px" className="object-contain p-0.5" />
             </div>
-            <span>ORIGIN PURE</span>
+            <div className="flex flex-col justify-center text-left leading-tight">
+              <span className="font-serif text-base sm:text-[20px] font-bold tracking-[0.14em] text-[#FFF8E7]">
+                Origin Pure
+              </span>
+              <span className="font-sans text-[8.5px] sm:text-[10px] font-semibold uppercase tracking-[0.22em] text-[#C9A65E] mt-0.5">
+                Wellness &amp; Natural
+              </span>
+            </div>
           </Link>
           <Link href="/shop" className="shrink-0 font-sans text-[10.5px] sm:text-[11px] font-semibold uppercase tracking-[0.14em] sm:tracking-[0.18em] text-[#F9E7B2] hover:text-[#FAF6F0] transition-colors py-2 px-1">Shop all blends</Link>
         </div>
