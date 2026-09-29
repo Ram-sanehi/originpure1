@@ -183,7 +183,7 @@ export default function PreferAmazon() {
   return (
     <section
       aria-labelledby="prefer-amazon-heading"
-      className="relative overflow-hidden border-t border-[#1B4332]/10 bg-[#FAF6F0] px-6 py-16 sm:py-20 lg:px-12 lg:py-24"
+      className="relative overflow-hidden bg-[#FAF6F0] px-6 pt-6 pb-16 sm:pt-8 sm:pb-20 lg:px-12 lg:pt-10 lg:pb-24"
     >
       {/* Subtle ambient botanical glow in corner */}
       <div

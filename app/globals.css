@@ -178,19 +178,7 @@ h4, h5, h6 {
   }
 }
 
-/* Process Spine Flow Animation */
-@keyframes spine-dash-flow {
-  0% {
-    stroke-dashoffset: 0;
-  }
-  100% {
-    stroke-dashoffset: -24;
-  }
-}
 
-.animate-spine-flow {
-  animation: spine-dash-flow 2s linear infinite;
-}
 
 /* Vertical Hero Marquee Animations */
 @keyframes marquee-vertical-up {

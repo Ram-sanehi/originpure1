@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { AMAZON_URL } from "@/lib/amazon";
 import { products } from "@/lib/products";
+import { siteConfig } from "@/lib/site-config";
 import { useState } from "react";
 
 const productCategories: Record<string, string> = {
@@ -128,9 +129,9 @@ export default function ProductStack() {
         </div>
 
         <div className="mb-10 grid gap-4 border-y border-[#1B4332]/10 py-5 font-sans text-sm text-[#1B4332]/70 sm:grid-cols-3">
-          <p><strong className="font-semibold text-[#1B4332]">4.7★</strong> average rating</p>
-          <p><strong className="font-semibold text-[#1B4332]">1,200+</strong> verified reviews</p>
-          <p><strong className="font-semibold text-[#1B4332]">50,000+</strong> cups brewed</p>
+          <p><strong className="font-semibold text-[#1B4332]">{siteConfig.ratingFormatted}★</strong> average rating</p>
+          <p><strong className="font-semibold text-[#1B4332]">{siteConfig.reviewCount}</strong> verified reviews</p>
+          <p><strong className="font-semibold text-[#1B4332]">{siteConfig.cupsBrewedFormatted}</strong> cups brewed</p>
         </div>
 
         <div key={activeCategory} className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">

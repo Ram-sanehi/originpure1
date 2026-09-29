@@ -1,16 +1,13 @@
 import HeroSection from "@/components/HeroSection";
+import BrandStory from "@/components/BrandStory";
+import FromLeafToCup from "@/components/FromLeafToCup";
+import ProductStack from "@/components/ProductStack";
+import WhyOriginPure from "@/components/WhyOriginPure";
 import RitualSection from "@/components/RitualSection";
-import BenefitsSection from "@/components/BenefitsSection";
 import HowToBrewSection from "@/components/HowToBrewSection";
 import ReviewsCarousel from "@/components/ReviewsCarousel";
-import WhyOriginPure from "@/components/WhyOriginPure";
 import StorySection from "@/components/StorySection";
 import FinalCTAFooter from "@/components/FinalCTAFooter";
-import BrandStory from "@/components/BrandStory";
-import ProductStack from "@/components/ProductStack";
-import ProductFeatures from "@/components/ProductFeatures";
-import OurProcess from "@/components/OurProcess";
-import PreferAmazon from "@/components/PreferAmazon";
 import PageScrollEffect from "@/components/PageScrollEffect";
 
 const productSchema = {
@@ -45,18 +42,32 @@ export default function Home() {
       <div id="page-background-layer" className="pointer-events-none fixed inset-0 z-0" />
 
       <div className="relative z-10">
+        {/* 1. Hero */}
         <HeroSection />
+
+        {/* 2. Philosophy ("Pure by Origin") + "What's inside" botanicals */}
         <BrandStory />
+
+        {/* 3. Our Process ("From Leaf to Cup" video section) */}
+        <FromLeafToCup id="process" />
+
+        {/* 4. Collection (9 blends) */}
         <ProductStack />
-        <ProductFeatures />
-        <RitualSection />
-        <BenefitsSection />
-        <HowToBrewSection />
-        <ReviewsCarousel />
+
+        {/* 5. Why Origin Pure (4 benefit cards) */}
         <WhyOriginPure />
+
+        {/* 6. The Ritual, then How to Brew */}
+        <RitualSection />
+        <HowToBrewSection />
+
+        {/* 7. Reviews */}
+        <ReviewsCarousel />
+
+        {/* 8. Our Story (Foxgle story) */}
         <StorySection />
-        <OurProcess />
-        <PreferAmazon />
+
+        {/* 9 & 10. Single combined Amazon CTA section + Footer */}
         <FinalCTAFooter />
       </div>
     </main>

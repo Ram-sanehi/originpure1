@@ -102,9 +102,8 @@ export default function BrandStory() {
       ref={sectionRef}
       data-page-section
       data-tone="story"
-      className="relative overflow-hidden bg-transparent py-20 lg:py-32"
+      className="relative overflow-hidden bg-[#FDFDFD] py-20 lg:py-32"
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(26,67,50,0.12),_transparent_36%)]" />
 
       {/* TOP SECTION: Philosophy & Story */}
       <div className="relative mx-auto grid max-w-7xl items-center gap-8 px-4 sm:gap-12 sm:px-6 lg:grid-cols-[1fr_0.9fr] lg:gap-20 lg:px-12">

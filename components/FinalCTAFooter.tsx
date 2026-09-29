@@ -18,10 +18,11 @@ export default function FinalCTAFooter() {
   return (
     <>
       <section
+        id="amazon"
         data-final-cta
         data-page-section
         data-tone="cta"
-        className="relative overflow-hidden pt-20 pb-8 sm:pb-10 lg:pt-28 lg:pb-12 text-[#FFF8E7] selection:bg-transparent selection:text-[#F9E7B2] bg-[#0B241B]"
+        className="relative overflow-hidden pt-20 pb-8 sm:pb-10 lg:pt-28 lg:pb-12 text-[#FFF8E7] selection:bg-transparent selection:text-[#F9E7B2] bg-[#0B241B] scroll-mt-10"
       >
         {/* ================= TEA GARDEN PHOTO BACKGROUND WITH STRONG DARK OVERLAY ================= */}
         <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
@@ -238,14 +239,17 @@ export default function FinalCTAFooter() {
               aria-label="Footer Navigation"
               className="flex flex-wrap items-center justify-center gap-x-4 sm:gap-x-6 gap-y-1 font-sans text-xs sm:text-[13px] font-medium tracking-[0.04em] text-[#1B4332]/70"
             >
-              <Link href="/shop" className="inline-flex min-h-[44px] items-center px-1.5 transition-colors hover:text-[#B88D27]">
-                Shop Blends
-              </Link>
-              <a href="/#story" className="inline-flex min-h-[44px] items-center px-1.5 transition-colors hover:text-[#B88D27]">
-                Our Story
+              <a href="/#process" className="inline-flex min-h-[44px] items-center px-1.5 transition-colors hover:text-[#B88D27]">
+                Our Process
+              </a>
+              <a href="/#collection" className="inline-flex min-h-[44px] items-center px-1.5 transition-colors hover:text-[#B88D27]">
+                Blends
               </a>
               <a href="/#ritual" className="inline-flex min-h-[44px] items-center px-1.5 transition-colors hover:text-[#B88D27]">
                 The Ritual
+              </a>
+              <a href="/#story" className="inline-flex min-h-[44px] items-center px-1.5 transition-colors hover:text-[#B88D27]">
+                Our Story
               </a>
             </nav>
 

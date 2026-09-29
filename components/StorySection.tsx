@@ -32,7 +32,7 @@ function PrincipleIcon({ type }: { type: string }) {
 
 export default function StorySection() {
   return (
-    <section id="story" className="bg-[#FAF6F0] py-20 text-[#27231F] lg:py-32">
+    <section id="story" className="bg-[#FAF6F0] pt-20 pb-16 text-[#27231F] lg:pt-28 lg:pb-20">
       <div className="mx-auto grid max-w-[1200px] gap-14 px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch lg:gap-20 lg:px-10">
         <div className="flex flex-col justify-between">
           <div>
